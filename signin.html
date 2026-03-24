@@ -7,13 +7,42 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Dark Theme (default) */
+            --bg-auth: #0a0e1a;
+            --bg-form: #0f172a;
+            --bg-input: rgba(255,255,255,0.05);
+            --bg-tab: rgba(255,255,255,0.05);
+            --bg-tab-active: #1e293b;
+            --text-main: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255,255,255,0.1);
+            --card-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-auth: #f8fafc;
+            --bg-form: #ffffff;
+            --bg-input: #f1f5f9;
+            --bg-tab: #f1f5f9;
+            --bg-tab-active: #ffffff;
+            --text-main: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --border-color: rgba(0,0,0,0.1);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
         * { margin:0; padding:0; box-sizing:border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
             height: 100vh;
             overflow: hidden;
-            background: #0a0e1a;
+            background: var(--bg-auth);
+            color: var(--text-main);
+            transition: background 0.3s, color 0.3s;
         }
 
         /* ============================================================
@@ -39,14 +68,14 @@
             z-index: 10;
             transition: left 0.65s cubic-bezier(0.77, 0, 0.175, 1);
             border-radius: 0 24px 24px 0;
-            box-shadow: 8px 0 40px rgba(0,0,0,0.5);
+            box-shadow: 8px 0 40px rgba(0,0,0,0.3);
         }
 
         /* When Sign Up is active → image slides to right */
         .auth-wrapper.signup-mode .image-panel {
             left: 50%;
             border-radius: 24px 0 0 24px;
-            box-shadow: -8px 0 40px rgba(0,0,0,0.5);
+            box-shadow: -8px 0 40px rgba(0,0,0,0.3);
         }
 
         .image-panel img, .image-panel video {
@@ -152,14 +181,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #0f172a;
+            background: var(--bg-form);
             padding: 40px 24px;
             overflow-y: auto;
+            transition: background 0.3s;
         }
 
-        /* Left cell = Sign UP form (image overlaps it while on sign-in mode) */
-        .form-cell.left  { background: #0f172a; }
-        .form-cell.right { background: #0f172a; }
+        /* Forms remain using var(--bg-form) */
+        .form-cell.left  { background: var(--bg-form); }
+        .form-cell.right { background: var(--bg-form); }
 
         .auth-box {
             width: 100%;
@@ -183,7 +213,7 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 20px;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-main);
             margin-bottom: 28px;
             justify-content: center;
         }
@@ -191,7 +221,7 @@
         /* ── Tab Bar ── */
         .auth-tabs {
             display: flex;
-            background: rgba(255,255,255,0.05);
+            background: var(--bg-tab);
             border-radius: 12px;
             padding: 4px;
             margin-bottom: 24px;
@@ -205,15 +235,15 @@
             cursor: pointer;
             font-weight: 600;
             font-size: 14px;
-            color: #64748b;
+            color: var(--text-muted);
             transition: all 0.25s;
             user-select: none;
         }
 
         .auth-tab.active {
-            background: #1e293b;
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            background: var(--bg-tab-active);
+            color: var(--text-main);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         /* ── Fields ── */
@@ -224,7 +254,7 @@
         .form-group label {
             display: block;
             font-size: 12px;
-            color: #94a3b8;
+            color: var(--text-muted);
             margin-bottom: 5px;
             font-weight: 500;
             letter-spacing: 0.3px;
@@ -233,10 +263,10 @@
         .form-group input {
             width: 100%;
             padding: 13px 16px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            color: #f1f5f9;
+            color: var(--text-main);
             font-size: 14px;
             font-family: 'Inter', sans-serif;
             outline: none;
@@ -247,8 +277,8 @@
 
         .form-group input:focus {
             border-color: #6366f1;
-            box-shadow: 0 0 0 4px rgba(99,102,241,0.25);
-            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 0 4px rgba(99,102,241,0.2);
+            background: var(--bg-auth);
             transform: translateY(-1px);
         }
 
@@ -316,7 +346,7 @@
             width: 100%;
             display: flex; align-items: center; justify-content: center; gap: 10px;
             padding: 11px; background: #fff; color: #1a1a1a;
-            border: none; border-radius: 10px; font-size: 14px; font-weight: 500;
+            border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; font-weight: 500;
             cursor: pointer; margin-bottom: 8px;
             transition: box-shadow 0.2s, transform 0.15s;
         }
@@ -325,20 +355,40 @@
 
         .switch-link {
             text-align: center; margin-top: 20px;
-            font-size: 13px; color: #64748b;
+            font-size: 13px; color: var(--text-muted);
         }
         .switch-link span {
-            color: #facc15; font-weight: 600; cursor: pointer;
+            color: #6366f1; font-weight: 600; cursor: pointer;
         }
         .switch-link span:hover { text-decoration: underline; }
 
         .back-link {
-            position: absolute; top: 18px; right: 24px; z-index: 20;
-            color: #64748b; text-decoration: none; font-size: 12px;
+            text-align: center; margin-top: 20px;
+            font-size: 13px; color: var(--text-muted);
+        }
+        .switch-link span {
+            color: #6366f1; font-weight: 600; cursor: pointer;
+        }
+        .switch-link span:hover { text-decoration: underline; }
+
+        .back-link {
+            position: absolute; top: 18px; right: 70px; z-index: 20;
+            color: var(--text-muted); text-decoration: none; font-size: 12px;
             display: flex; align-items: center; gap: 4px;
             transition: color 0.2s;
         }
-        .back-link:hover { color: #e2e8f0; }
+        .back-link:hover { color: var(--text-main); }
+
+        .theme-toggle-auth {
+            position: absolute; top: 18px; right: 24px; z-index: 20;
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--bg-tab); border: 1px solid var(--border-color);
+            color: var(--text-muted); display: flex; align-items: center;
+            justify-content: center; cursor: pointer; transition: all 0.3s;
+        }
+        .theme-toggle-auth:hover {
+            background: #6366f1; color: #fff; border-color: #6366f1;
+        }
 
         @media (max-width: 700px) {
             .auth-wrapper { display: block; }
@@ -415,7 +465,7 @@
 </head>
 <body>
 
-<div class="auth-wrapper" id="authWrapper">
+<div class="auth-wrapper signup-mode" id="authWrapper">
 
     <!-- ── Sliding Image Panel ── -->
     <div class="image-panel" id="imagePanel">
@@ -437,12 +487,12 @@
         <a href="index.html" class="image-brand">🐟 Easy Fishy</a>
 
         <!-- Caption changes per mode -->
-        <div class="image-caption" id="signinCaption">
+        <div class="image-caption" id="signinCaption" style="display:none;">
             <div class="pill">EASY FISHY DETECTION AI</div>
             <h2>Scan. Verify.<br>Trust Quality.</h2>
             <p>AI-powered contactless fish freshness analysis — fast and accurate.</p>
         </div>
-        <div class="image-caption" id="signupCaption" style="display:none;">
+        <div class="image-caption" id="signupCaption" style="display:block;">
             <div class="pill">JOIN EASY FISHY</div>
             <h2>Start Detecting<br>Fish Freshness Today.</h2>
             <p>Create your free account and access deep learning quality reports instantly.</p>
@@ -456,7 +506,7 @@
 
             <div class="auth-tabs">
                 <div class="auth-tab" onclick="switchTab('signin')">Sign In</div>
-                <div class="auth-tab active">Sign Up</div>
+                <div class="auth-tab active" onclick="switchTab('signup')">Sign Up</div>
             </div>
 
             <div class="name-row">
@@ -510,8 +560,8 @@
             <div class="auth-logo">🐠 Easy Fishy</div>
 
             <div class="auth-tabs">
-                <div class="auth-tab active">Sign In</div>
-                <div class="auth-tab" onclick="switchTab('signup')">Sign Up</div>
+                <div class="auth-tab" onclick="switchTab('signin')">Sign In</div>
+                <div class="auth-tab active" onclick="switchTab('signup')">Sign Up</div>
             </div>
 
             <button class="social-btn">
@@ -550,17 +600,38 @@
     <a href="index.html" class="back-link">
         <i class="material-icons" style="font-size:15px">arrow_back</i> Home
     </a>
+
+    <button class="theme-toggle-auth" id="themeToggle" title="Toggle Theme">
+        <i class="material-icons" id="themeIcon">light_mode</i>
+    </button>
 </div>
 
 <script>
-    let currentTab = 'signin';
+    // --- Theme Management ---
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const body = document.body;
 
+    // Initialize Theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    body.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+        themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+    }
+
+    // --- UI Helpers ---
     function switchTab(tab) {
-        if (tab === currentTab) return;
-        currentTab = tab;
-
         const wrapper = document.getElementById('authWrapper');
-
         if (tab === 'signup') {
             wrapper.classList.add('signup-mode');
             document.getElementById('signinCaption').style.display = 'none';
@@ -574,9 +645,15 @@
         // Animate form boxes with re-fade
         const boxes = document.querySelectorAll('.auth-box');
         boxes.forEach(b => {
-            b.style.animation = 'none';
-            b.offsetHeight; // reflow
-            b.style.animation = '';
+             b.style.animation = 'none';
+             b.offsetHeight; // reflow
+             b.style.animation = '';
+        });
+
+        // Update active tab highlight
+        document.querySelectorAll('.auth-tab').forEach(t => {
+            if (t.innerText.toLowerCase().includes(tab)) t.classList.add('active');
+            else t.classList.remove('active');
         });
     }
 
@@ -586,6 +663,95 @@
         input.type = isText ? 'password' : 'text';
         btn.querySelector('i').textContent = isText ? 'visibility' : 'visibility_off';
     }
+
+    // --- Authentication Logic & Initialization ---
+    const API_URL = 'http://localhost:5000/api';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Theme Initialization
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        // 2. Default Tab (Sign Up)
+        const wrapper = document.getElementById('authWrapper');
+        wrapper.classList.add('signup-mode');
+        document.getElementById('signinCaption').style.display = 'none';
+        document.getElementById('signupCaption').style.display = 'block';
+        document.querySelectorAll('.auth-tab').forEach(t => {
+            if (t.innerText === 'Sign Up') t.classList.add('active');
+            else t.classList.remove('active');
+        });
+
+        // 3. Auth Actions
+        const signupBtn = document.querySelector('.signup-btn-style');
+        if (signupBtn) {
+            signupBtn.addEventListener('click', async () => {
+                const firstName = document.querySelector('.form-cell.left input[placeholder="John"]').value;
+                const email = document.querySelector('.form-cell.left input[type="email"]').value;
+                const password = document.getElementById('suPw').value;
+                const confirmPassword = document.getElementById('suCf').value;
+
+                if (!firstName || !email || !password) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${API_URL}/signup`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ firstName, email, password })
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        localStorage.setItem('easyFishyUser', JSON.stringify(data.user));
+                        sessionStorage.setItem('justLoggedIn', 'true');
+                        window.location.href = 'index.html';
+                    } else {
+                        alert(data.error || 'Signup failed');
+                    }
+                } catch (err) {
+                    alert('Backend server not running. Please start app.py');
+                }
+            });
+        }
+
+        const signinBtn = document.querySelector('.signin-btn-style');
+        if (signinBtn) {
+            signinBtn.addEventListener('click', async () => {
+                const email = document.querySelector('.form-cell.right input[type="email"]').value;
+                const password = document.getElementById('siPw').value;
+
+                if (!email || !password) {
+                    alert('Please enter email and password');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${API_URL}/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        localStorage.setItem('easyFishyUser', JSON.stringify(data.user));
+                        sessionStorage.setItem('justLoggedIn', 'true');
+                        window.location.href = 'index.html';
+                    } else {
+                        alert(data.error || 'Invalid credentials');
+                    }
+                } catch (err) {
+                    alert('Backend server not running. Please start app.py');
+                }
+            });
+        }
+    });
 </script>
 </body>
 </html>

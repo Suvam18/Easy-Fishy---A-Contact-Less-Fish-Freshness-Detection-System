@@ -1072,16 +1072,21 @@
             <span>Easy Fishy</span>
         </div>
         <div class="navbar-links">
-            <a href="#" class="navbar-link">Home</a>
-            <a href="#" class="navbar-link">Features</a>
-            <a href="#" class="navbar-link">How it works</a>
-            <a href="#" class="navbar-link">Why Easy Fishy ?</a>
-            <a href="#" class="navbar-link">Pricing</a>
-            <a href="#" class="navbar-link">Faq</a>
+            <a href="#home" class="navbar-link">Home</a>
+            <a href="#features" class="navbar-link">Features</a>
+            <a href="#how-it-works" class="navbar-link">How it works</a>
+            <a href="#why-easy-fishy" class="navbar-link">Why Easy Fishy ?</a>
+            <a href="#pricing" class="navbar-link">Pricing</a>
+            <a href="#faq" class="navbar-link">Faq</a>
         </div>
         <div class="navbar-actions">
-            <a href="signin.html" class="signin-btn" style="text-decoration:none;">Sign in</a>
-            <button class="get-started-btn">Get started</button>
+            <!-- Dynamic Auth Container -->
+            <div id="nav-auth-container" style="display: flex; align-items: center; gap: 15px;">
+                <a href="signin.html" id="nav-signin-btn" class="signin-btn" style="text-decoration:none;">Sign in</a>
+                <button id="nav-get-started-btn" class="get-started-btn">Get started</button>
+                <!-- User greeting and logout will be injected here if logged in -->
+            </div>
+            
             <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
                 <i class="material-icons" id="themeIcon">light_mode</i>
             </button>
@@ -1090,7 +1095,7 @@
 
     <div class="poster-container">
         <!-- Trimly Style Hero Section -->
-        <section class="hero-section trimly-style">
+        <section class="hero-section trimly-style" id="home">
             <div class="trimly-container">
                 <!-- Left Content -->
                 <div class="trimly-left">
@@ -1177,7 +1182,7 @@
         </section>
 
         <!-- Modern Services Section -->
-        <section class="services-section">
+        <section class="services-section" id="features">
             <div class="services-texture"></div>
             <div class="services-subtitle">Why Easy Fishy?</div>
             <h2 class="services-title">Our Services</h2>
@@ -1248,7 +1253,7 @@
         </section>
 
         <!-- How It Works Section -->
-        <section class="hiw-section">
+        <section class="hiw-section" id="how-it-works">
             <div class="hiw-subtitle">HERE'S HOW IT WORKS</div>
             <h2 class="hiw-title">How does Easy Fishy work?</h2>
             <p class="hiw-desc">Get started in just 3 simple steps &mdash; from capturing the fish image to instantly receiving a highly accurate freshness grade.</p>
