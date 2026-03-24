@@ -110,3 +110,4 @@ function setMode(mode) {
         document.getElementById('metricsSection').style.display = 'none';
     }
 }
+
