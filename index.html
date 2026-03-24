@@ -7,8 +7,662 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Modern Services Section */
+        .services-section {
+            background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+            overflow: hidden;
+            padding: 80px 20px;
+            text-align: center;
+            color: #1a202c;
+            position: relative;
+            z-index: 10;
+        }
+
+        [data-theme="dark"] .services-section {
+            background: #0f172a;
+            color: #f1f5f9;
+        }
+
+        .services-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+        
+        [data-theme="dark"] .services-subtitle { color: #94a3b8; }
+
+        .services-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 24px;
+        }
+        
+        [data-theme="dark"] .services-title { color: #f1f5f9; }
+
+        .services-desc {
+            font-size: 16px;
+            color: #475569;
+            max-width: 680px;
+            margin: 0 auto 60px auto;
+            line-height: 1.6;
+        }
+        
+        [data-theme="dark"] .services-desc { color: #cbd5e1; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            text-align: left;
+            transition: top 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            top: 0;
+        }
+        
+        [data-theme="dark"] .service-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .service-card:hover {
+            top: -5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        [data-theme="dark"] .service-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .service-img-wrapper {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            padding: 30px 24px;
+        }
+
+        .service-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 12px;
+        }
+        
+        [data-theme="dark"] .service-content h3 { color: #f1f5f9; }
+
+        .service-content p {
+            font-size: 15px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        
+        [data-theme="dark"] .service-content p { color: #94a3b8; }
+
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .services-title { font-size: 32px; }
+        }
+    
+        /* How It Works Section */
+        .hiw-section {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 50%, #99f6e4 100%);
+            background-image: 
+                linear-gradient(to right, rgba(15, 118, 110, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 118, 110, 0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
+            padding: 120px 20px;
+            text-align: center;
+            color: #1a202c;
+            position: relative;
+            z-index: 10;
+            border-top: 3px solid rgba(16, 185, 129, 0.15);
+            border-bottom: 3px solid rgba(16, 185, 129, 0.15);
+            margin-bottom: 0;
+        }
+
+        [data-theme="dark"] .hiw-section {
+            background: linear-gradient(135deg, #042f2e 0%, #134e4a 50%, #0f766e 100%);
+            border-top: 3px solid rgba(16, 185, 129, 0.08);
+            border-bottom: 3px solid rgba(16, 185, 129, 0.08);
+            color: #f1f5f9;
+        }
+
+        .hiw-subtitle {
+            font-size: 13px;
+            font-weight: 700;
+            color: #10b981;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .hiw-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 24px;
+        }
+        
+        [data-theme="dark"] .hiw-title { color: #f1f5f9; }
+
+        .hiw-desc {
+            font-size: 16px;
+            color: #4a5568;
+            max-width: 600px;
+            margin: 0 auto 60px auto;
+            line-height: 1.6;
+        }
+        
+        [data-theme="dark"] .hiw-desc { color: #cbd5e1; }
+
+        /* Stepper Visuals */
+        .hiw-stepper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto 30px auto;
+        }
+        
+        .stepper-col {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .step-circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+        }
+        
+        .step-circle:hover {
+            transform: scale(1.15) translateY(-5px);
+            background: #14b8a6; /* Sea green highlight */
+            color: #ffffff;
+            border-color: #14b8a6;
+            box-shadow: 0 15px 30px rgba(20, 184, 166, 0.4);
+        }
+        
+        [data-theme="dark"] .step-circle {
+            background: #1e293b;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+
+        .step-arrow {
+            position: absolute;
+            top: 20px; /* Aligned nicely with 72px circle */
+            left: 50%;
+            width: 100%;
+            height: 40px;
+            padding-left: 50px; /* space away from the circle */
+            padding-right: 10px;
+            box-sizing: border-box;
+            z-index: 1;
+            margin-top: -30px; /* curve goes up */
+        }
+        
+        .step-arrow svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .step-arrow path {
+            stroke: #cbd5e1;
+        }
+        
+        [data-theme="dark"] .step-arrow path {
+            stroke: #475569;
+        }
+
+        /* 3-Column Content Layout */
+        .hiw-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hiw-card {
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .hiw-card.highlighted {
+            background: #f4fbf9; /* Light green tint from screenshot */
+        }
+        
+        [data-theme="dark"] .hiw-card.highlighted {
+            background: rgba(16, 185, 129, 0.05); /* Dark theme matching */
+        }
+
+        .hiw-card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 16px;
+        }
+        
+        [data-theme="dark"] .hiw-card h3 { color: #f1f5f9; }
+
+        .hiw-card p {
+            font-size: 15px;
+            color: #4a5568;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        [data-theme="dark"] .hiw-card p { color: #94a3b8; }
+        
+        @media (max-width: 900px) {
+            .hiw-grid { grid-template-columns: 1fr; gap: 20px; }
+            .hiw-stepper { display: none; } /* Hide complicated stepper on small screen */
+            .hiw-card { padding: 30px 20px; }
+            .hiw-title { font-size: 32px; }
+        }
+
+    
+        /* Background Blobs for Services */
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: -50px; left: -100px;
+            width: 400px; height: 400px;
+            background: rgba(16, 185, 129, 0.15); /* Light green */
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .services-section::after {
+            content: '';
+            position: absolute;
+            bottom: -50px; right: -100px;
+            width: 500px; height: 500px;
+            background: rgba(99, 102, 241, 0.15); /* Light blue */
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .services-section > * {
+            position: relative;
+            z-index: 2; /* keep content above blobs */
+        }
+
+        /* Animations for How it Works */
+        .slide-left { opacity: 0; transform: translateX(-120px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+        .slide-up { opacity: 0; transform: translateY(120px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1) 0.3s; }
+        .slide-right { opacity: 0; transform: translateX(120px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1) 0.6s; }
+        
+        .hiw-grid.in-view .slide-left,
+        .hiw-grid.in-view .slide-up,
+        .hiw-grid.in-view .slide-right {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+        
+        /* Dark Theme Backgrounds */
+        [data-theme="dark"] .services-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+        }
+        
+        [data-theme="dark"] .hiw-section {
+            background: linear-gradient(135deg, #042f2e 0%, #134e4a 50%, #0f766e 100%) !important;
+            background-image: 
+                linear-gradient(to right, rgba(94, 234, 212, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(94, 234, 212, 0.06) 1px, transparent 1px) !important;
+            background-size: 32px 32px !important;
+        }
+        
+        [data-theme="dark"] .services-section::before {
+            background: rgba(16, 185, 129, 0.05);
+        }
+        [data-theme="dark"] .services-section::after {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+    
+        /* Why Easy Fishy Section */
+        .why-section {
+            background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
+            padding: 150px 5%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .why-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(234, 179, 8, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(234, 179, 8, 0.1) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(ellipse at 70% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 75%);
+            -webkit-mask-image: radial-gradient(ellipse at 70% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 75%);
+        }
+        
+        [data-theme="dark"] .why-section {
+            background: linear-gradient(135deg, #0a0e27 0%, #0f172a 100%);
+            border-top: 1px solid rgba(255,255,255,0.03);
+        }
+        [data-theme="dark"] .why-section::before {
+            background-image: 
+                linear-gradient(to right, rgba(234, 179, 8, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(234, 179, 8, 0.05) 1px, transparent 1px);
+        }
+        
+        .why-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-text-content {
+            flex: 1;
+        }
+
+        .why-subtitle {
+            font-size: 13px;
+            font-weight: 700;
+            color: #6366f1;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .why-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+        
+        [data-theme="dark"] .why-title { color: #f1f5f9; }
+
+        .why-desc {
+            font-size: 16px;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        
+        [data-theme="dark"] .why-desc { color: #94a3b8; }
+
+        .why-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .why-list li {
+            display: flex;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+        }
+
+        .why-list li:hover {
+            transform: scale(1.02) translateX(8px);
+            box-shadow: 0 20px 40px rgba(250, 204, 21, 0.15);
+            border-color: rgba(250, 204, 21, 0.4);
+            background: #ffffff;
+        }
+        
+        [data-theme="dark"] .why-list li {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        [data-theme="dark"] .why-list li:hover {
+            background: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 20px 40px rgba(250, 204, 21, 0.08);
+            border-color: rgba(234, 179, 8, 0.3);
+        }
+
+        .why-list li:hover .why-icon {
+            background: #facc15;
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .why-icon {
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        [data-theme="dark"] .why-icon { background: rgba(165, 180, 252, 0.1); color: #a5b4fc; }
+
+        .why-item-text h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+        
+        [data-theme="dark"] .why-item-text h4 { color: #f1f5f9; }
+
+        .why-item-text p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        [data-theme="dark"] .why-item-text p { color: #cbd5e1; }
+
+        .why-image-content {
+            flex: 1;
+            position: relative;
+        }
+
+        .why-image-wrapper {
+            border-radius: 24px;
+            overflow: visible; /* to allow badge to float outside */
+            position: relative;
+        }
+
+        .why-image-wrapper img {
+            width: 100%;
+            border-radius: 24px;
+            height: auto;
+            display: block;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .why-floating-badge {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: #ffffff;
+            padding: 16px 24px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            color: #0f172a;
+            z-index: 5;
+            animation: floatY 4s ease-in-out infinite;
+        }
+        
+        [data-theme="dark"] .why-floating-badge {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .why-section.in-view .slide-left,
+        .why-section.in-view .slide-right {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+        
+        @media (max-width: 900px) {
+            .why-container { flex-direction: column; gap: 40px; }
+            .why-image-content { width: 100%; margin-top: 20px; }
+            .why-floating-badge { bottom: 20px; left: 20px; }
+        }
+
+    
+        .services-texture {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 130, 246, 0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 1;
+            mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+        }
+        
+        [data-theme="dark"] .services-texture {
+            background-image: 
+                linear-gradient(to right, rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+        }
+
+        .anim-left { opacity: 0; }
+        .anim-right { opacity: 0; }
+        .anim-up { opacity: 0; }
+        .anim-down { opacity: 0; }
+
+        .services-grid.in-view .anim-left { animation: slideInLeft 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .services-grid.in-view .anim-right { animation: slideInRight 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .services-grid.in-view .anim-up { animation: slideInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .services-grid.in-view .anim-down { animation: slideInDown 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+        .delay-1 { animation-delay: 0.2s !important; }
+        .delay-2 { animation-delay: 0.4s !important; }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-80px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(80px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(80px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-80px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    
+        .hiw-stepper.in-view .anim-down { animation: slideInDown 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .delay-3 { animation-delay: 0.6s !important; }
+
+    
+        
+
+    
+        footer {
+            background: #0f172a;
+            position: relative;
+            z-index: 10;
+        }
+        [data-theme="light"] footer {
+            background: #f8fafc;
+        }
+
+    </style>
 </head>
 <body data-theme="dark">
+
+    
+
     <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-brand">
@@ -16,10 +670,12 @@
             <span>Easy Fishy</span>
         </div>
         <div class="navbar-links">
+            <a href="#" class="navbar-link">Home</a>
             <a href="#" class="navbar-link">Features</a>
-            <a href="#" class="navbar-link">How it Works</a>
+            <a href="#" class="navbar-link">How it works</a>
+            <a href="#" class="navbar-link">Why Easy Fishy ?</a>
             <a href="#" class="navbar-link">Pricing</a>
-            <a href="#" class="navbar-link">About</a>
+            <a href="#" class="navbar-link">Faq</a>
         </div>
         <div class="navbar-actions">
             <a href="signin.html" class="signin-btn" style="text-decoration:none;">Sign in</a>
@@ -118,284 +774,171 @@
             </div>
         </section>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Problem + Solution Section -->
-            <section class="problem-solution">
-                <div class="ps-card">
-                    <div class="ps-title">
-                        <i class="material-icons" style="color: var(--warning-color);">warning</i>
-                        The Problem
-                    </div>
-                    <div class="ps-text">Manual fish inspection is subjective and inconsistent in markets, leading to quality issues and health risks.</div>
-                </div>
-                <div class="ps-card">
-                    <div class="ps-title">
-                        <i class="material-icons" style="color: var(--success-color);">check_circle</i>
-                        Our Solution
-                    </div>
-                    <div class="ps-text">Objective, automated freshness assessment with 96.5% accuracy using advanced deep learning models.</div>
-                </div>
-            </section>
+        <!-- Modern Services Section -->
+        <section class="services-section">
+            <div class="services-texture"></div>
+            <div class="services-subtitle">Why Easy Fishy?</div>
+            <h2 class="services-title">Our Services</h2>
+            <p class="services-desc">Easy Fishy offers a range of intelligent services to make managing your seafood quality simple, rapid, and verifiable:</p>
 
-            <!-- Input Section -->
-            <section class="input-section" id="uploadSection">
-                <div class="section-header">
-                    <h2 class="section-title">Upload Fish Image</h2>
-                    <p class="section-description">Upload a clear image of the fish for freshness analysis</p>
-                </div>
-                
-                <div class="upload-options">
-                    <button class="upload-btn">
-                        <i class="material-icons">folder_open</i> Browse Files
-                    </button>
-                    <button class="upload-btn">
-                        <i class="material-icons">camera_alt</i> Take Photo
-                    </button>
-                </div>
-                
-                <div class="image-preview" id="imagePreview" style="display: block; background-image: url('https://sfile.chatglm.cn/images-ppt/a4568045e2b7.png');">
-                    <div class="bounding-box" style="top: 20%; left: 10%; width: 40%; height: 60%;">
-                        <div class="fish-label" style="top: -20px; left: 0;">Rohu 98%</div>
+            <div class="services-grid">
+                <!-- Card 1 -->
+                <div class="service-card anim-left">
+                    <div class="service-img-wrapper">
+                        <img src="fish_scanning_hd.png" alt="Freshness Detection">
                     </div>
-                    <div class="bounding-box" style="top: 30%; left: 55%; width: 35%; height: 50%;">
-                        <div class="fish-label" style="top: -20px; left: 0;">Katla 95%</div>
+                    <div class="service-content">
+                        <h3>Instant Freshness Detection</h3>
+                        <p>Analyze fish freshness in under 3 seconds using our verified deep learning AI scanner from any smart device.</p>
                     </div>
                 </div>
-                
-                <div class="controls-panel">
-                    <div class="control-item">
-                        <span>Model:</span>
-                        <select style="background: var(--bg-secondary); color: var(--text-main); border: 1px solid var(--card-border); border-radius: 8px; padding: 6px 10px; font-size: 13px;">
-                            <option>CNN (EfficientNetV2)</option>
-                            <option>Vision Transformer (ViT)</option>
-                            <option>Auto Select Best Model</option>
-                        </select>
+                <!-- Card 2 -->
+                <div class="service-card anim-down delay-1">
+                    <div class="service-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?auto=format&fit=crop&q=80&w=600" alt="Species Recognition">
                     </div>
-                    <div class="control-item">
-                        <span>Multi-Fish Detection</span>
-                        <div class="toggle-switch active"></div>
-                    </div>
-                    <div class="control-item">
-                        <span>Species Recognition</span>
-                        <div class="toggle-switch active"></div>
+                    <div class="service-content">
+                        <h3>Species Recognition</h3>
+                        <p>Automatically identify over 50+ commercial fish species with 98.5% industry-leading accuracy on markets globally.</p>
                     </div>
                 </div>
-            </section>
+                <!-- Card 3 -->
+                <div class="service-card anim-right">
+                    <div class="service-img-wrapper">
+                        <img src="goldfish_4k.png" alt="Quality Reports">
+                    </div>
+                    <div class="service-content">
+                        <h3>Detailed Quality Reports</h3>
+                        <p>Generate downloadable, verifiable health and freshness certificates for your market stalls and customers.</p>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="service-card anim-left delay-2">
+                    <div class="service-img-wrapper">
+                        <img src="underwater_4k.png" alt="Market Pricing">
+                    </div>
+                    <div class="service-content">
+                        <h3>Dynamic Market Pricing</h3>
+                        <p>Get AI-suggested selling prices in real-time based on the calculated freshness grade and current market trends.</p>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="service-card anim-up delay-2">
+                    <div class="service-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&q=80&w=800" alt="Cloud Sync">
+                    </div>
+                    <div class="service-content">
+                        <h3>Cloud Analytics Dashboard</h3>
+                        <p>Collaborate with your supply chain by sharing real-time freshness scans, historic data, and supply alerts.</p>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="service-card anim-right delay-2">
+                    <div class="service-img-wrapper">
+                        <img src="underwater_hazy_hd.png" alt="Edge Deployment">
+                    </div>
+                    <div class="service-content">
+                        <h3>Offline Edge Deployment</h3>
+                        <p>Continue scanning without internet access using our lightweight, on-device mobile model designed for extreme conditions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <!-- Analyze Button -->
-            <button class="analyze-btn" onclick="showResults()">
-                <i class="material-icons">analytics</i> Analyze Freshness
-            </button>
+        <!-- How It Works Section -->
+        <section class="hiw-section">
+            <div class="hiw-subtitle">HERE'S HOW IT WORKS</div>
+            <h2 class="hiw-title">How does Easy Fishy work?</h2>
+            <p class="hiw-desc">Get started in just 3 simple steps &mdash; from capturing the fish image to instantly receiving a highly accurate freshness grade.</p>
 
-            <!-- Results Dashboard -->
-            <section class="results-section" id="resultsSection">
-                <div class="results-header">
-                    <div class="results-title">
-                        <i class="material-icons">assessment</i> Analysis Results
-                    </div>
-                    <div class="mode-toggle">
-                        <div class="mode-option active" onclick="setMode('market')">Market</div>
-                        <div class="mode-option" onclick="setMode('lab')">Lab</div>
-                    </div>
-                </div>
-                
-                <div class="trust-score">
-                    <i class="material-icons trust-icon">verified</i>
-                    <div>
-                        <div style="font-size: 12px; color: var(--text-muted);">Vendor Trust Score</div>
-                        <div class="trust-value">4.8/5.0 (Excellent)</div>
+                        <!-- Desktop Visual Stepper -->
+            <div class="hiw-stepper">
+                <div class="stepper-col anim-down delay-1">
+                    <div class="step-circle">1</div>
+                    <div class="step-arrow">
+                        <svg viewBox="0 0 100 30" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 20 Q 50 -10, 100 20" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+                            <path d="M95 15 L100 20 L93 25" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
                     </div>
                 </div>
-                
-                <!-- Fish 1 -->
-                <div class="fish-card fresh">
-                    <div class="fish-header">
-                        <div class="fish-type">Rohu (Labeo rohita)</div>
-                        <div class="freshness-badge fresh">Fresh ✅</div>
-                    </div>
-                    <div class="fish-details">
-                        <div class="fish-detail-item">
-                            <span class="detail-label">Confidence</span>
-                            <span class="detail-value status-fresh">98.2%</span>
-                        </div>
-                        <div class="fish-detail-item">
-                            <span class="detail-label">Time Since Catch</span>
-                            <span class="detail-value">~4 hours</span>
-                        </div>
-                        <div class="fish-detail-item">
-                            <span class="detail-label">Quality Grade</span>
-                            <span class="detail-value">Grade A</span>
-                        </div>
-                        <div class="fish-detail-item">
-                            <span class="detail-label">Expected Freshness</span>
-                            <span class="detail-value">2-3 days</span>
-                        </div>
+                <div class="stepper-col anim-down delay-2">
+                    <div class="step-circle">2</div>
+                    <div class="step-arrow">
+                        <svg viewBox="0 0 100 30" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 20 Q 50 -10, 100 20" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+                            <path d="M95 15 L100 20 L93 25" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
                     </div>
                 </div>
-                
-                <!-- Fish 2 -->
-                <div class="fish-card fresh">
-                    <div class="fish-header">
-                        <div class="fish-type">Katla (Catla)</div>
-                        <div class="freshness-badge fresh">Fresh ✅</div>
-                    </div>
-                    <div class="fish-details">
-                        <div class="fish-detail-item">
-                            <span class="detail-label">Confidence</span>
-                            <span class="detail-value status-fresh">95.7%</span>
-                        </div>
-                        <div class="fish-detail-item">
-                            <span class="detail-label">Time Since Catch</span>
-                            <span class="detail-value">~5 hours</span>
-                        </div>
-                        <div class="fish-detail-item">
-                            <span class="detail-label">Quality Grade</span>
-                            <span class="detail-value">Grade A</span>
-                        </div>
-                        <div class="fish-detail-item">
-                            <span class="detail-label">Expected Freshness</span>
-                            <span class="detail-value">2-3 days</span>
-                        </div>
-                    </div>
+                <div class="stepper-col anim-down delay-3">
+                    <div class="step-circle">3</div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Price & Recommendation Panel -->
-            <section class="price-section" id="priceSection">
-                <div class="results-header">
-                    <div class="results-title">
-                        <i class="material-icons">payments</i> Price & Recommendation
-                    </div>
-                    <button class="voice-btn">
-                        <i class="material-icons" style="font-size: 14px;">volume_up</i> Audio
-                    </button>
+            <!-- Content Grid -->
+            <div class="hiw-grid">
+                <!-- Step 1 Info -->
+                <div class="hiw-card slide-left">
+                    <h3>Upload Fish Image</h3>
+                    <p>Simply take a high-quality photo of the whole fish or upload an existing image directly into our secure platform.</p>
                 </div>
-                
-                <div class="price-card">
-                    <div>
-                        <div class="price-label">Suggested Price per kg</div>
-                        <div class="price-suggestion">₹280 - ₹320</div>
-                    </div>
-                    <div class="recommendation-actions">
-                        <button class="rec-btn sell">Sell Now</button>
-                        <button class="rec-btn discount">Discount</button>
-                        <button class="rec-btn reject">Reject</button>
-                    </div>
+                <!-- Step 2 Info (Highlight Box) -->
+                <div class="hiw-card highlighted slide-up">
+                    <h3>Analyze with AI</h3>
+                    <p>Our deep learning models instantly analyze the fish features to compute a verified freshness and quality grade.</p>
                 </div>
-            </section>
+                <!-- Step 3 Info -->
+                <div class="hiw-card slide-right">
+                    <h3>View Quality Report</h3>
+                    <p>Instantly receive your comprehensive freshness report, species identification, and a recommended market price.</p>
+                </div>
+            </div>
+        </section>
 
-            <!-- Explainable AI Section -->
-            <section class="xai-section" id="xaiSection">
-                <div class="xai-title">
-                    <i class="material-icons">visibility</i> AI Focus Areas (Explainable AI)
+        <!-- Why Easy Fishy Section -->
+        <section class="why-section" id="why-easy-fishy">
+            <div class="why-container">
+                <div class="why-text-content slide-left">
+                    <div class="why-subtitle">THE EASY FISHY ADVANTAGE</div>
+                    <h2 class="why-title">Why choose Easy Fishy?</h2>
+                    <p class="why-desc">Traditional seafood inspection relies heavily on subjective human judgment, which is prone to error and inconsistencies. Easy Fishy replaces guesswork with verified, deterministic deep learning.</p>
+                    
+                    <ul class="why-list">
+                        <li>
+                            <div class="why-icon"><i class="material-icons">speed</i></div>
+                            <div class="why-item-text">
+                                <h4>Laser-Fast Assessment</h4>
+                                <p>Cut inspection times down from minutes to mere seconds. Scan an entire crate in real time.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="why-icon"><i class="material-icons">health_and_safety</i></div>
+                            <div class="why-item-text">
+                                <h4>Eliminate Health Risks</h4>
+                                <p>Our 98.5% accurate AI detects early signs of spoilage invisible to the naked eye, safeguarding your customers.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="why-icon"><i class="material-icons">trending_up</i></div>
+                            <div class="why-item-text">
+                                <h4>Maximize Market Value</h4>
+                                <p>Generate digital freshness certificates to justify premium pricing and rapidly build buyer trust.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="heatmap-container">
-                    <img src="https://sfile.chatglm.cn/images-ppt/a6ec56cb56f2.png" alt="Grad-CAM Heatmap" class="heatmap-img">
-                </div>
-                <div class="focus-areas">
-                    <div class="focus-item">
-                        <i class="material-icons" style="color: var(--accent-blue);">visibility</i>
-                        <span>Eyes (Clear)</span>
-                    </div>
-                    <div class="focus-item">
-                        <i class="material-icons" style="color: var(--accent-purple);">grid_on</i>
-                        <span>Gills (Red)</span>
-                    </div>
-                    <div class="focus-item">
-                        <i class="material-icons" style="color: var(--success-color);">texture</i>
-                        <span>Skin (Shiny)</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Metrics Section (Lab Mode) -->
-            <section class="metrics-section" id="metricsSection">
-                <div class="metrics-title">
-                    <i class="material-icons">bar_chart</i> Model Performance Metrics
-                </div>
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">Accuracy</div>
-                        <div class="metric-value">96.5%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Precision</div>
-                        <div class="metric-value">94.2%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Recall</div>
-                        <div class="metric-value">92.8%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">F1 Score</div>
-                        <div class="metric-value">93.5%</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- History Section -->
-            <section class="history-section" id="historySection">
-                <div class="history-title">
-                    <i class="material-icons">history</i> Recent Scans
-                </div>
-                <div class="history-items">
-                    <div class="history-item">
-                        <div class="history-img" style="background-image: url('https://sfile.chatglm.cn/images-ppt/d5fcba678837.jpg');"></div>
-                        <div class="history-result">
-                            <span class="result-dot" style="background: var(--success-color);"></span>Fresh
-                        </div>
-                    </div>
-                    <div class="history-item">
-                        <div class="history-img" style="background-image: url('https://sfile.chatglm.cn/images-ppt/c469bebc4db5.jpg');"></div>
-                        <div class="history-result">
-                            <span class="result-dot" style="background: var(--warning-color);"></span>Moderate
-                        </div>
-                    </div>
-                    <div class="history-item">
-                        <div class="history-img" style="background-image: url('https://sfile.chatglm.cn/images-ppt/8b3594b2a7cc.jpg');"></div>
-                        <div class="history-result">
-                            <span class="result-dot" style="background: var(--success-color);"></span>Fresh
-                        </div>
-                    </div>
-                    <div class="history-item">
-                        <div class="history-img" style="background-image: url('https://sfile.chatglm.cn/images-ppt/40d83396f5b0.jpg');"></div>
-                        <div class="history-result">
-                            <span class="result-dot" style="background: var(--success-color);"></span>Fresh
+                <div class="why-image-content slide-right">
+                    <div class="why-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?auto=format&fit=crop&q=80&w=800" alt="Fresh Seafood Market">
+                        <div class="why-floating-badge">
+                            <i class="material-icons" style="color:#facc15;">star</i>
+                            <span>Trusted by 500+ Markets</span>
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <!-- Adaptability Section -->
-            <section class="adaptability-section">
-                <div class="adapt-item">
-                    <i class="material-icons adapt-icon">nightlight</i>
-                    <div class="adapt-text">Low Light</div>
-                </div>
-                <div class="adapt-item">
-                    <i class="material-icons adapt-icon">blur_on</i>
-                    <div class="adapt-text">Noisy Backgrounds</div>
-                </div>
-                <div class="adapt-item">
-                    <i class="material-icons adapt-icon">water_drop</i>
-                    <div class="adapt-text">Wet Surfaces</div>
-                </div>
-                <div class="adapt-item">
-                    <i class="material-icons adapt-icon">phone_android</i>
-                    <div class="adapt-text">Mobile Ready</div>
-                </div>
-            </section>
-
-            <!-- Edge Deployment Section -->
-            <section class="edge-section">
-                <i class="material-icons edge-icon">device_hub</i>
-                <div class="edge-content">
-                    <h3>Edge Deployment Ready</h3>
-                    <p>Mobile compatible • Fast inference (< 100ms) • Lightweight model (15MB)</p>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
 
         <!-- Animated Footer -->
         <footer>
@@ -455,5 +998,32 @@
     </div>
 
     <script src="script.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        
+        
+        const servicesGrid = document.querySelector('.services-grid');
+        if (servicesGrid) observer.observe(servicesGrid);
+
+        const hiwStepper = document.querySelector('.hiw-stepper');
+        if (hiwStepper) observer.observe(hiwStepper);
+        const grid = document.querySelector('.hiw-grid');
+        if (grid) observer.observe(grid);
+
+        const why = document.querySelector('.why-section');
+        if (why) observer.observe(why);
+
+    });
+</script>
+
 </body>
 </html>

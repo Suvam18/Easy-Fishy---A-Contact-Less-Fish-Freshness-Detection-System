@@ -49,19 +49,21 @@
             box-shadow: -8px 0 40px rgba(0,0,0,0.5);
         }
 
-        .image-panel img {
+        .image-panel img, .image-panel video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: opacity 0.5s ease;
-            animation: slowZoom 25s ease-in-out infinite alternate;
+            animation: slowZoom 15s ease-in-out infinite alternate;
             filter: brightness(0.75) saturate(1.2);
+            transform-origin: center center;
+            will-change: transform;
         }
 
         /* Second image (signup) crossfades in */
         .image-panel .img-signin { opacity: 1; position: absolute; inset: 0; }
         .image-panel .img-signup { opacity: 0; position: absolute; inset: 0; }
-        .image-panel .img-signup img { animation-delay: -12s; }
+        .image-panel .img-signup img, .image-panel .img-signup video { animation-delay: -7s; }
 
         .auth-wrapper.signup-mode .image-panel .img-signin { opacity: 0; }
         .auth-wrapper.signup-mode .image-panel .img-signup { opacity: 1; }
@@ -72,7 +74,7 @@
 
         @keyframes slowZoom {
             0%   { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            100% { transform: scale(1.15); }
         }
 
         /* Haze / frosted glass overlay on images */
@@ -230,22 +232,24 @@
 
         .form-group input {
             width: 100%;
-            padding: 11px 14px;
+            padding: 13px 16px;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
+            border-radius: 12px;
             color: #f1f5f9;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
         }
 
         .form-group input::placeholder { color: #475569; }
 
         .form-group input:focus {
             border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+            box-shadow: 0 0 0 4px rgba(99,102,241,0.25);
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-1px);
         }
 
         .password-wrapper { position: relative; }
@@ -271,11 +275,11 @@
 
         /* ── Buttons ── */
         .auth-btn {
-            width: 100%; padding: 13px;
-            border: none; border-radius: 10px;
+            width: 100%; padding: 14px;
+            border: none; border-radius: 12px;
             font-size: 15px; font-weight: 600;
             cursor: pointer;
-            transition: transform 0.15s, box-shadow 0.2s;
+            transition: all 0.3s ease;
             margin-top: 4px;
         }
 
@@ -285,8 +289,8 @@
         }
         .auth-btn.signin-btn-style:hover {
             background: #4f46e5;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(99,102,241,0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99,102,241,0.45);
         }
 
         .auth-btn.signup-btn-style {
@@ -295,8 +299,8 @@
         }
         .auth-btn.signup-btn-style:hover {
             background: #059669;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(16,185,129,0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16,185,129,0.45);
         }
 
         .divider {
@@ -337,8 +341,75 @@
         .back-link:hover { color: #e2e8f0; }
 
         @media (max-width: 700px) {
-            .auth-wrapper { grid-template-columns: 1fr; }
-            .image-panel { display: none; }
+            .auth-wrapper { display: block; }
+
+            .image-panel {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                box-shadow: none;
+                z-index: 0;
+            }
+            .auth-wrapper.signup-mode .image-panel {
+                left: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .image-caption { display: none !important; }
+
+            .image-brand {
+                top: 24px;
+                left: 24px;
+                font-size: 18px;
+            }
+
+            .back-link {
+                top: 24px;
+                right: 20px;
+                background: rgba(0,0,0,0.4);
+                padding: 6px 12px;
+                border-radius: 20px;
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .form-cell {
+                position: absolute;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: transparent !important;
+                z-index: 10;
+                padding: 20px;
+                /* By default hidden on mobile unless active */
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+
+            .auth-wrapper:not(.signup-mode) .form-cell.right {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                z-index: 20;
+            }
+
+            .auth-wrapper.signup-mode .form-cell.left {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                z-index: 20;
+            }
+
+            .auth-box {
+                background: rgba(15, 23, 42, 0.55);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 24px;
+                padding: 32px 24px;
+                box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+                margin: auto;
+            }
         }
     </style>
 </head>

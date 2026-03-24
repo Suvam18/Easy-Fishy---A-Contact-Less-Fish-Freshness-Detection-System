@@ -191,7 +191,26 @@ body {
     overflow: hidden;
 }
 
+/* Subtle Yellow Mesh Texture Overlay */
+.hero-section.trimly-style::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Yellow grid pattern */
+    background-image: 
+        linear-gradient(to right, rgba(234, 179, 8, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(234, 179, 8, 0.12) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+    /* Fading mask so texture is mostly behind text */
+    mask-image: radial-gradient(ellipse at 30% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 30% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 75%);
+}
+
 .trimly-container {
+    position: relative;
+    z-index: 1; /* Keep content above background texture */
     max-width: 1300px;
     margin: 0 auto;
     display: flex;
