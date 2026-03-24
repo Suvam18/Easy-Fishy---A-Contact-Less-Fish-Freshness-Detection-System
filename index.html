@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Freshness Detection - Advanced AI System</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span class="navbar-icon">🐟</span>
+            <span>FreshFish AI</span>
+        </div>
+        <div class="navbar-links">
+            <a href="#" class="navbar-link">Features</a>
+            <a href="#" class="navbar-link">How it Works</a>
+            <a href="#" class="navbar-link">Pricing</a>
+            <a href="#" class="navbar-link">About</a>
+        </div>
+        <div class="navbar-actions">
+            <button class="signin-btn">Sign in</button>
+            <button class="get-started-btn">Get started</button>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                <i class="material-icons" id="themeIcon">light_mode</i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="poster-container">
+        <!-- Animated Hero Section -->
+        <section class="hero-section">
+            <div class="hero-bg-decoration"></div>
+            
+            <div class="hero-content">
+                <div class="hero-left">
+                    <div class="hero-badge">Introducing Fish Freshness AI 2.0</div>
+                    <h1 class="hero-title">AI-Powered Fish Freshness Detection</h1>
+                    <p class="hero-subtitle">Accurate multi-class quality assessment using deep learning and computer vision. Analyze fish freshness instantly with our advanced image-based AI models.</p>
+                    
+                    <div class="hero-buttons">
+                        <button class="hero-btn btn-primary">
+                            <i class="material-icons" style="font-size: 18px;">cloud_upload</i> Upload Image
+                        </button>
+                        <button class="hero-btn btn-secondary">
+                            <i class="material-icons" style="font-size: 18px;">play_circle</i> Live Demo
+                        </button>
+                    </div>
+                    
+                    <div class="scroll-down">
+                        <div class="scroll-text">Scroll down & dive in</div>
+                        <div class="scroll-arrow">
+                            <i class="material-icons" style="font-size: 16px;">arrow_downward</i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-right">
+                    <div class="carousel-container">
+                        <div class="carousel-slide active">
+                            <img src="https://sfile.chatglm.cn/images-ppt/673f9a35ef89.jpeg" alt="Fresh Fish">
+                            <div class="carousel-overlay">Fresh Fish - Clear Eyes, Bright Gills</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://sfile.chatglm.cn/images-ppt/2d349287dc42.jpg" alt="Moderate Freshness">
+                            <div class="carousel-overlay">Moderate Freshness - Slight Dullness</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://sfile.chatglm.cn/images-ppt/d9f029b202c6.jpg" alt="Spoiled Fish">
+                            <div class="carousel-overlay">Spoiled Fish - Dull Eyes, Discoloration</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://sfile.chatglm.cn/images-ppt/8b72ecd5ebc7.jpg" alt="Fish Market">
+                            <div class="carousel-overlay">Real-World Market Context</div>
+                        </div>
+                        
+                        <div class="carousel-indicators">
+                            <div class="carousel-indicator active" data-slide="0"></div>
+                            <div class="carousel-indicator" data-slide="1"></div>
+                            <div class="carousel-indicator" data-slide="2"></div>
+                            <div class="carousel-indicator" data-slide="3"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="floating-badge badge-1">
+                        <i class="material-icons" style="color: var(--success-color);">verified</i>
+                        <div>
+                            <div>95% Accuracy</div>
+                            <div style="font-size: 10px; color: var(--text-muted);">Verified Model</div>
+                        </div>
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <i class="material-icons" style="color: var(--accent-blue);">speed</i>
+                        <div>
+                            <div>Real-Time</div>
+                            <div style="font-size: 10px; color: var(--text-muted);">Fast Detection</div>
+                        </div>
+                    </div>
+                    <div class="floating-badge badge-3">
+                        <i class="material-icons" style="color: var(--accent-purple);">psychology</i>
+                        <div>
+                            <div>AI Powered</div>
+                            <div style="font-size: 10px; color: var(--text-muted);">Deep Learning</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hero Features -->
+            <div class="hero-features">
+                <div class="hero-feature-card">
+                    <div class="feature-icon">
+                        <i class="material-icons">emoji_events</i>
+                    </div>
+                    <div class="feature-title">Award Winning</div>
+                    <div class="feature-desc">Hackathon Champion 2025. Beating traditional methods with AI.</div>
+                    <div class="feature-cta">
+                        Learn More <i class="material-icons" style="font-size: 14px;">arrow_forward</i>
+                    </div>
+                </div>
+                <div class="hero-feature-card">
+                    <div class="feature-icon">
+                        <i class="material-icons">trending_up</i>
+                    </div>
+                    <div class="feature-title">Trend Setting</div>
+                    <div class="feature-desc">Top Tech Trend 2025. AI revolution in food safety.</div>
+                    <div class="feature-cta">
+                        Explore Now <i class="material-icons" style="font-size: 14px;">arrow_forward</i>
+                    </div>
+                </div>
+                <div class="hero-feature-card">
+                    <div class="feature-icon">
+                        <i class="material-icons">groups</i>
+                    </div>
+                    <div class="feature-title">Trusted by the Best</div>
+                    <div class="feature-desc">Used by leading seafood markets and restaurants.</div>
+                    <div class="feature-cta">
+                        View Clients <i class="material-icons" style="font-size: 14px;">arrow_forward</i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scrolling Text Animation -->
+            <div class="scrolling-text-container">
+                <div class="scrolling-text-track" id="scrollingText">
+                    <!-- Items will be added by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Problem + Solution Section -->
+            <section class="problem-solution">
+                <div class="ps-card">
+                    <div class="ps-title">
+                        <i class="material-icons" style="color: var(--warning-color);">warning</i>
+                        The Problem
+                    </div>
+                    <div class="ps-text">Manual fish inspection is subjective and inconsistent in markets, leading to quality issues and health risks.</div>
+                </div>
+                <div class="ps-card">
+                    <div class="ps-title">
+                        <i class="material-icons" style="color: var(--success-color);">check_circle</i>
+                        Our Solution
+                    </div>
+                    <div class="ps-text">Objective, automated freshness assessment with 96.5% accuracy using advanced deep learning models.</div>
+                </div>
+            </section>
+
+            <!-- Input Section -->
+            <section class="input-section" id="uploadSection">
+                <div class="section-header">
+                    <h2 class="section-title">Upload Fish Image</h2>
+                    <p class="section-description">Upload a clear image of the fish for freshness analysis</p>
+                </div>
+                
+                <div class="upload-options">
+                    <button class="upload-btn">
+                        <i class="material-icons">folder_open</i> Browse Files
+                    </button>
+                    <button class="upload-btn">
+                        <i class="material-icons">camera_alt</i> Take Photo
+                    </button>
+                </div>
+                
+                <div class="image-preview" id="imagePreview" style="display: block; background-image: url('https://sfile.chatglm.cn/images-ppt/a4568045e2b7.png');">
+                    <div class="bounding-box" style="top: 20%; left: 10%; width: 40%; height: 60%;">
+                        <div class="fish-label" style="top: -20px; left: 0;">Rohu 98%</div>
+                    </div>
+                    <div class="bounding-box" style="top: 30%; left: 55%; width: 35%; height: 50%;">
+                        <div class="fish-label" style="top: -20px; left: 0;">Katla 95%</div>
+                    </div>
+                </div>
+                
+                <div class="controls-panel">
+                    <div class="control-item">
+                        <span>Model:</span>
+                        <select style="background: var(--bg-secondary); color: var(--text-main); border: 1px solid var(--card-border); border-radius: 8px; padding: 6px 10px; font-size: 13px;">
+                            <option>CNN (EfficientNetV2)</option>
+                            <option>Vision Transformer (ViT)</option>
+                            <option>Auto Select Best Model</option>
+                        </select>
+                    </div>
+                    <div class="control-item">
+                        <span>Multi-Fish Detection</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    <div class="control-item">
+                        <span>Species Recognition</span>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analyze Button -->
+            <button class="analyze-btn" onclick="showResults()">
+                <i class="material-icons">analytics</i> Analyze Freshness
+            </button>
+
+            <!-- Results Dashboard -->
+            <section class="results-section" id="resultsSection">
+                <div class="results-header">
+                    <div class="results-title">
+                        <i class="material-icons">assessment</i> Analysis Results
+                    </div>
+                    <div class="mode-toggle">
+                        <div class="mode-option active" onclick="setMode('market')">Market</div>
+                        <div class="mode-option" onclick="setMode('lab')">Lab</div>
+                    </div>
+                </div>
+                
+                <div class="trust-score">
+                    <i class="material-icons trust-icon">verified</i>
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Vendor Trust Score</div>
+                        <div class="trust-value">4.8/5.0 (Excellent)</div>
+                    </div>
+                </div>
+                
+                <!-- Fish 1 -->
+                <div class="fish-card fresh">
+                    <div class="fish-header">
+                        <div class="fish-type">Rohu (Labeo rohita)</div>
+                        <div class="freshness-badge fresh">Fresh ✅</div>
+                    </div>
+                    <div class="fish-details">
+                        <div class="fish-detail-item">
+                            <span class="detail-label">Confidence</span>
+                            <span class="detail-value status-fresh">98.2%</span>
+                        </div>
+                        <div class="fish-detail-item">
+                            <span class="detail-label">Time Since Catch</span>
+                            <span class="detail-value">~4 hours</span>
+                        </div>
+                        <div class="fish-detail-item">
+                            <span class="detail-label">Quality Grade</span>
+                            <span class="detail-value">Grade A</span>
+                        </div>
+                        <div class="fish-detail-item">
+                            <span class="detail-label">Expected Freshness</span>
+                            <span class="detail-value">2-3 days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fish 2 -->
+                <div class="fish-card fresh">
+                    <div class="fish-header">
+                        <div class="fish-type">Katla (Catla)</div>
+                        <div class="freshness-badge fresh">Fresh ✅</div>
+                    </div>
+                    <div class="fish-details">
+                        <div class="fish-detail-item">
+                            <span class="detail-label">Confidence</span>
+                            <span class="detail-value status-fresh">95.7%</span>
+                        </div>
+                        <div class="fish-detail-item">
+                            <span class="detail-label">Time Since Catch</span>
+                            <span class="detail-value">~5 hours</span>
+                        </div>
+                        <div class="fish-detail-item">
+                            <span class="detail-label">Quality Grade</span>
+                            <span class="detail-value">Grade A</span>
+                        </div>
+                        <div class="fish-detail-item">
+                            <span class="detail-label">Expected Freshness</span>
+                            <span class="detail-value">2-3 days</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Price & Recommendation Panel -->
+            <section class="price-section" id="priceSection">
+                <div class="results-header">
+                    <div class="results-title">
+                        <i class="material-icons">payments</i> Price & Recommendation
+                    </div>
+                    <button class="voice-btn">
+                        <i class="material-icons" style="font-size: 14px;">volume_up</i> Audio
+                    </button>
+                </div>
+                
+                <div class="price-card">
+                    <div>
+                        <div class="price-label">Suggested Price per kg</div>
+                        <div class="price-suggestion">₹280 - ₹320</div>
+                    </div>
+                    <div class="recommendation-actions">
+                        <button class="rec-btn sell">Sell Now</button>
+                        <button class="rec-btn discount">Discount</button>
+                        <button class="rec-btn reject">Reject</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Explainable AI Section -->
+            <section class="xai-section" id="xaiSection">
+                <div class="xai-title">
+                    <i class="material-icons">visibility</i> AI Focus Areas (Explainable AI)
+                </div>
+                <div class="heatmap-container">
+                    <img src="https://sfile.chatglm.cn/images-ppt/a6ec56cb56f2.png" alt="Grad-CAM Heatmap" class="heatmap-img">
+                </div>
+                <div class="focus-areas">
+                    <div class="focus-item">
+                        <i class="material-icons" style="color: var(--accent-blue);">visibility</i>
+                        <span>Eyes (Clear)</span>
+                    </div>
+                    <div class="focus-item">
+                        <i class="material-icons" style="color: var(--accent-purple);">grid_on</i>
+                        <span>Gills (Red)</span>
+                    </div>
+                    <div class="focus-item">
+                        <i class="material-icons" style="color: var(--success-color);">texture</i>
+                        <span>Skin (Shiny)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Metrics Section (Lab Mode) -->
+            <section class="metrics-section" id="metricsSection">
+                <div class="metrics-title">
+                    <i class="material-icons">bar_chart</i> Model Performance Metrics
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Accuracy</div>
+                        <div class="metric-value">96.5%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Precision</div>
+                        <div class="metric-value">94.2%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Recall</div>
+                        <div class="metric-value">92.8%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">F1 Score</div>
+                        <div class="metric-value">93.5%</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section class="history-section" id="historySection">
+                <div class="history-title">
+                    <i class="material-icons">history</i> Recent Scans
+                </div>
+                <div class="history-items">
+                    <div class="history-item">
+                        <div class="history-img" style="background-image: url('https://sfile.chatglm.cn/images-ppt/d5fcba678837.jpg');"></div>
+                        <div class="history-result">
+                            <span class="result-dot" style="background: var(--success-color);"></span>Fresh
+                        </div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-img" style="background-image: url('https://sfile.chatglm.cn/images-ppt/c469bebc4db5.jpg');"></div>
+                        <div class="history-result">
+                            <span class="result-dot" style="background: var(--warning-color);"></span>Moderate
+                        </div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-img" style="background-image: url('https://sfile.chatglm.cn/images-ppt/8b3594b2a7cc.jpg');"></div>
+                        <div class="history-result">
+                            <span class="result-dot" style="background: var(--success-color);"></span>Fresh
+                        </div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-img" style="background-image: url('https://sfile.chatglm.cn/images-ppt/40d83396f5b0.jpg');"></div>
+                        <div class="history-result">
+                            <span class="result-dot" style="background: var(--success-color);"></span>Fresh
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Adaptability Section -->
+            <section class="adaptability-section">
+                <div class="adapt-item">
+                    <i class="material-icons adapt-icon">nightlight</i>
+                    <div class="adapt-text">Low Light</div>
+                </div>
+                <div class="adapt-item">
+                    <i class="material-icons adapt-icon">blur_on</i>
+                    <div class="adapt-text">Noisy Backgrounds</div>
+                </div>
+                <div class="adapt-item">
+                    <i class="material-icons adapt-icon">water_drop</i>
+                    <div class="adapt-text">Wet Surfaces</div>
+                </div>
+                <div class="adapt-item">
+                    <i class="material-icons adapt-icon">phone_android</i>
+                    <div class="adapt-text">Mobile Ready</div>
+                </div>
+            </section>
+
+            <!-- Edge Deployment Section -->
+            <section class="edge-section">
+                <i class="material-icons edge-icon">device_hub</i>
+                <div class="edge-content">
+                    <h3>Edge Deployment Ready</h3>
+                    <p>Mobile compatible • Fast inference (< 100ms) • Lightweight model (15MB)</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Animated Footer -->
+        <footer>
+            <div class="wave-container">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+            </div>
+            
+            <!-- Floating Fish -->
+            <div class="floating-fish fish-1">🐟</div>
+            <div class="floating-fish fish-2">🐠</div>
+            <div class="floating-fish fish-3">🐡</div>
+            <div class="floating-fish fish-4">🦈</div>
+            <div class="floating-fish fish-5">🐙</div>
+            
+            <!-- Bubbles -->
+            <div class="bubble bubble-1"></div>
+            <div class="bubble bubble-2"></div>
+            <div class="bubble bubble-3"></div>
+            <div class="bubble bubble-4"></div>
+            <div class="bubble bubble-5"></div>
+            <div class="bubble bubble-6"></div>
+            <div class="bubble bubble-7"></div>
+            
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="footer-logo-icon">🐟</span>
+                    <span>FreshFish AI</span>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Home</a>
+                    <a href="#" class="footer-link">Features</a>
+                    <a href="#" class="footer-link">Pricing</a>
+                    <a href="#" class="footer-link">About</a>
+                    <a href="#" class="footer-link">Contact</a>
+                </div>
+                
+                <div class="footer-copyright">
+                    FreshFish AI Team © 2026. All rights reserved.
+                </div>
+                
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <i class="material-icons">code</i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="material-icons">email</i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="material-icons">share</i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
