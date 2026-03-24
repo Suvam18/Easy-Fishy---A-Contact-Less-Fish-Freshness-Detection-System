@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In / Sign Up — Easy Fishy</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: #0a0e1a;
+        }
+
+        /* ============================================================
+           MAIN WRAPPER — uses CSS Grid for the split layout
+        ============================================================ */
+        .auth-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* ============================================================
+           IMAGE PANEL — slides left↔right on tab switch
+        ============================================================ */
+        .image-panel {
+            position: absolute;
+            top: 0;
+            left: 0;          /* default: LEFT side = Sign In */
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 10;
+            transition: left 0.65s cubic-bezier(0.77, 0, 0.175, 1);
+            border-radius: 0 24px 24px 0;
+            box-shadow: 8px 0 40px rgba(0,0,0,0.5);
+        }
+
+        /* When Sign Up is active → image slides to right */
+        .auth-wrapper.signup-mode .image-panel {
+            left: 50%;
+            border-radius: 24px 0 0 24px;
+            box-shadow: -8px 0 40px rgba(0,0,0,0.5);
+        }
+
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+            animation: slowZoom 25s ease-in-out infinite alternate;
+            filter: brightness(0.75) saturate(1.2);
+        }
+
+        /* Second image (signup) crossfades in */
+        .image-panel .img-signin { opacity: 1; position: absolute; inset: 0; }
+        .image-panel .img-signup { opacity: 0; position: absolute; inset: 0; }
+        .image-panel .img-signup img { animation-delay: -12s; }
+
+        .auth-wrapper.signup-mode .image-panel .img-signin { opacity: 0; }
+        .auth-wrapper.signup-mode .image-panel .img-signup { opacity: 1; }
+
+        .img-signin, .img-signup {
+            transition: opacity 0.5s ease 0.15s;
+        }
+
+        @keyframes slowZoom {
+            0%   { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* Haze / frosted glass overlay on images */
+        .image-haze {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(6,182,212,0.25) 0%,
+                rgba(99,102,241,0.35) 100%
+            );
+            backdrop-filter: blur(1px);
+        }
+
+        /* Text on image */
+        .image-caption {
+            position: absolute;
+            bottom: 48px;
+            left: 0; right: 0;
+            padding: 0 40px;
+            color: #fff;
+            z-index: 2;
+        }
+
+        .image-caption .pill {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+        }
+
+        .image-caption h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+
+        .image-caption p {
+            font-size: 14px;
+            opacity: 0.85;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+        }
+
+        /* Brand on image */
+        .image-brand {
+            position: absolute;
+            top: 28px;
+            left: 32px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        /* ============================================================
+           FORM PANELS (left cell and right cell of the grid)
+        ============================================================ */
+        .form-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f172a;
+            padding: 40px 24px;
+            overflow-y: auto;
+        }
+
+        /* Left cell = Sign UP form (image overlaps it while on sign-in mode) */
+        .form-cell.left  { background: #0f172a; }
+        .form-cell.right { background: #0f172a; }
+
+        .auth-box {
+            width: 100%;
+            max-width: 380px;
+        }
+
+        /* Fade & slide for the form content */
+        .auth-box {
+            animation: fadeUp 0.5s ease both;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Logo ── */
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 28px;
+            justify-content: center;
+        }
+
+        /* ── Tab Bar ── */
+        .auth-tabs {
+            display: flex;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 24px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: #64748b;
+            transition: all 0.25s;
+            user-select: none;
+        }
+
+        .auth-tab.active {
+            background: #1e293b;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* ── Fields ── */
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 5px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 11px 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #f1f5f9;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input::placeholder { color: #475569; }
+
+        .form-group input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+        }
+
+        .password-wrapper { position: relative; }
+        .password-wrapper input { padding-right: 42px; }
+        .eye-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%; transform: translateY(-50%);
+            background: none; border: none;
+            cursor: pointer; color: #64748b;
+        }
+
+        .name-row { display: flex; gap: 10px; }
+        .name-row .form-group { flex: 1; }
+
+        .forgot-link {
+            text-align: right; margin-top: -4px; margin-bottom: 16px;
+        }
+        .forgot-link a {
+            font-size: 12px; color: #6366f1; text-decoration: none;
+        }
+        .forgot-link a:hover { text-decoration: underline; }
+
+        /* ── Buttons ── */
+        .auth-btn {
+            width: 100%; padding: 13px;
+            border: none; border-radius: 10px;
+            font-size: 15px; font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.2s;
+            margin-top: 4px;
+        }
+
+        .auth-btn.signin-btn-style {
+            background: #6366f1; color: #fff;
+            box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+        }
+        .auth-btn.signin-btn-style:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(99,102,241,0.4);
+        }
+
+        .auth-btn.signup-btn-style {
+            background: #10b981; color: #fff;
+            box-shadow: 0 4px 15px rgba(16,185,129,0.3);
+        }
+        .auth-btn.signup-btn-style:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(16,185,129,0.4);
+        }
+
+        .divider {
+            display: flex; align-items: center; gap: 10px;
+            color: #475569; font-size: 12px; margin: 16px 0;
+        }
+        .divider::before, .divider::after {
+            content: ''; flex: 1; height: 1px;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .social-btn {
+            width: 100%;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 11px; background: #fff; color: #1a1a1a;
+            border: none; border-radius: 10px; font-size: 14px; font-weight: 500;
+            cursor: pointer; margin-bottom: 8px;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .social-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .social-btn img { width: 18px; height: 18px; }
+
+        .switch-link {
+            text-align: center; margin-top: 20px;
+            font-size: 13px; color: #64748b;
+        }
+        .switch-link span {
+            color: #facc15; font-weight: 600; cursor: pointer;
+        }
+        .switch-link span:hover { text-decoration: underline; }
+
+        .back-link {
+            position: absolute; top: 18px; right: 24px; z-index: 20;
+            color: #64748b; text-decoration: none; font-size: 12px;
+            display: flex; align-items: center; gap: 4px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #e2e8f0; }
+
+        @media (max-width: 700px) {
+            .auth-wrapper { grid-template-columns: 1fr; }
+            .image-panel { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-wrapper" id="authWrapper">
+
+    <!-- ── Sliding Image Panel ── -->
+    <div class="image-panel" id="imagePanel">
+        <!-- Sign In video (goldfish/aquarium) 4K style -->
+        <div class="img-signin">
+            <video autoplay muted loop playsinline poster="goldfish_4k.png" style="width:100%; height:100%; object-fit:cover;">
+                <source src="https://player.vimeo.com/external/494252666.hd.mp4?s=2f5c7772ba9a8479e0066555110903328e19e710&profile_id=175" type="video/mp4">
+            </video>
+        </div>
+        <!-- Sign Up video (underwater ocean) 4K style -->
+        <div class="img-signup">
+            <video autoplay muted loop playsinline poster="underwater_4k.png" style="width:100%; height:100%; object-fit:cover;">
+                <source src="https://player.vimeo.com/external/370331493.hd.mp4?s=7b94b059345c26f743c7b74950f5d47e8c69d80d&profile_id=175" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="image-haze"></div>
+
+        <a href="index.html" class="image-brand">🐟 Easy Fishy</a>
+
+        <!-- Caption changes per mode -->
+        <div class="image-caption" id="signinCaption">
+            <div class="pill">EASY FISHY DETECTION AI</div>
+            <h2>Scan. Verify.<br>Trust Quality.</h2>
+            <p>AI-powered contactless fish freshness analysis — fast and accurate.</p>
+        </div>
+        <div class="image-caption" id="signupCaption" style="display:none;">
+            <div class="pill">JOIN EASY FISHY</div>
+            <h2>Start Detecting<br>Fish Freshness Today.</h2>
+            <p>Create your free account and access deep learning quality reports instantly.</p>
+        </div>
+    </div>
+
+    <!-- ── Left Cell: Sign Up Form ── -->
+    <div class="form-cell left">
+        <div class="auth-box" id="signupBox">
+            <div class="auth-logo">🐟 Easy Fishy</div>
+
+            <div class="auth-tabs">
+                <div class="auth-tab" onclick="switchTab('signin')">Sign In</div>
+                <div class="auth-tab active">Sign Up</div>
+            </div>
+
+            <div class="name-row">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" placeholder="John">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" placeholder="Doe">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="you@example.com">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="suPw" placeholder="Create a strong password">
+                    <button class="eye-btn" onclick="togglePw('suPw',this)">
+                        <i class="material-icons" style="font-size:18px">visibility</i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="suCf" placeholder="Repeat password">
+                    <button class="eye-btn" onclick="togglePw('suCf',this)">
+                        <i class="material-icons" style="font-size:18px">visibility</i>
+                    </button>
+                </div>
+            </div>
+
+            <button class="auth-btn signup-btn-style">Create Account</button>
+
+            <div class="switch-link">
+                Already have an account?
+                <span onclick="switchTab('signin')">Sign In</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Right Cell: Sign In Form ── -->
+    <div class="form-cell right">
+        <div class="auth-box" id="signinBox">
+            <div class="auth-logo">🐠 Easy Fishy</div>
+
+            <div class="auth-tabs">
+                <div class="auth-tab active">Sign In</div>
+                <div class="auth-tab" onclick="switchTab('signup')">Sign Up</div>
+            </div>
+
+            <button class="social-btn">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
+                Continue with Google
+            </button>
+
+            <div class="divider">or with email</div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="you@example.com">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="siPw" placeholder="Enter your password">
+                    <button class="eye-btn" onclick="togglePw('siPw',this)">
+                        <i class="material-icons" style="font-size:18px">visibility</i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="forgot-link"><a href="#">Forgot password?</a></div>
+
+            <button class="auth-btn signin-btn-style">Sign In</button>
+
+            <div class="switch-link">
+                No account yet?
+                <span onclick="switchTab('signup')">Sign Up</span>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">
+        <i class="material-icons" style="font-size:15px">arrow_back</i> Home
+    </a>
+</div>
+
+<script>
+    let currentTab = 'signin';
+
+    function switchTab(tab) {
+        if (tab === currentTab) return;
+        currentTab = tab;
+
+        const wrapper = document.getElementById('authWrapper');
+
+        if (tab === 'signup') {
+            wrapper.classList.add('signup-mode');
+            document.getElementById('signinCaption').style.display = 'none';
+            document.getElementById('signupCaption').style.display = 'block';
+        } else {
+            wrapper.classList.remove('signup-mode');
+            document.getElementById('signinCaption').style.display = 'block';
+            document.getElementById('signupCaption').style.display = 'none';
+        }
+
+        // Animate form boxes with re-fade
+        const boxes = document.querySelectorAll('.auth-box');
+        boxes.forEach(b => {
+            b.style.animation = 'none';
+            b.offsetHeight; // reflow
+            b.style.animation = '';
+        });
+    }
+
+    function togglePw(id, btn) {
+        const input = document.getElementById(id);
+        const isText = input.type === 'text';
+        input.type = isText ? 'password' : 'text';
+        btn.querySelector('i').textContent = isText ? 'visibility' : 'visibility_off';
+    }
+</script>
+</body>
+</html>
