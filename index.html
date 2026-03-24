@@ -139,28 +139,70 @@
             .services-title { font-size: 32px; }
         }
     
-        /* How It Works Section */
+        /* How It Works Section - Refined with Yellow Grid & Localized Glow */
         .hiw-section {
-            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 50%, #99f6e4 100%);
-            background-image: 
-                linear-gradient(to right, rgba(15, 118, 110, 0.08) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(15, 118, 110, 0.08) 1px, transparent 1px);
-            background-size: 32px 32px;
+            background: #fffdf5;
             padding: 120px 20px;
             text-align: center;
             color: #1a202c;
             position: relative;
             z-index: 10;
-            border-top: 3px solid rgba(16, 185, 129, 0.15);
-            border-bottom: 3px solid rgba(16, 185, 129, 0.15);
-            margin-bottom: 0;
+            overflow: hidden;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        /* Yellow Grid Texture */
+        .hiw-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(234, 179, 8, 0.12) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(234, 179, 8, 0.12) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none; z-index: 0;
+        }
+
+        /* Localized Dark Green Glow focus */
+        .hiw-section::after {
+            content: '';
+            position: absolute;
+            top: 60%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1300px; height: 1000px;
+            background: radial-gradient(ellipse at center, rgba(4, 78, 74, 0.18) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hiw-section > * { position: relative; z-index: 1; }
+
+        [data-theme="dark"] .hiw-section {
+            background: #0b1121;
+        }
+        [data-theme="dark"] .hiw-section::before {
+             background-image: 
+                linear-gradient(to right, rgba(234, 179, 8, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(234, 179, 8, 0.04) 1px, transparent 1px);
+        }
+        [data-theme="dark"] .hiw-section::after {
+            background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.08) 0%, transparent 65%);
         }
 
         [data-theme="dark"] .hiw-section {
-            background: linear-gradient(135deg, #042f2e 0%, #134e4a 50%, #0f766e 100%);
-            border-top: 3px solid rgba(16, 185, 129, 0.08);
-            border-bottom: 3px solid rgba(16, 185, 129, 0.08);
+            background: #0b1121;
+            border-top: 1px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
             color: #f1f5f9;
+        }
+        [data-theme="dark"] .hiw-section::before {
+             background-image: 
+                linear-gradient(to right, rgba(234, 179, 8, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(234, 179, 8, 0.03) 1px, transparent 1px);
+        }
+        [data-theme="dark"] .hiw-content-focus {
+            background: #020d0c;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
         }
 
         .hiw-subtitle {
@@ -228,10 +270,10 @@
         
         .step-circle:hover {
             transform: scale(1.15) translateY(-5px);
-            background: #14b8a6; /* Sea green highlight */
+            background: #10b981; 
             color: #ffffff;
-            border-color: #14b8a6;
-            box-shadow: 0 15px 30px rgba(20, 184, 166, 0.4);
+            border-color: #10b981;
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
         }
         
         [data-theme="dark"] .step-circle {
@@ -278,16 +320,38 @@
 
         .hiw-card {
             padding: 40px 30px;
-            border-radius: 20px;
+            border-radius: 24px;
             text-align: center;
+            background: #ffffff;
+            border: 1px solid #dae2ea;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hiw-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12);
+            border-color: #10b981;
+            background: #ffffff;
         }
         
         .hiw-card.highlighted {
-            background: #f4fbf9; /* Light green tint from screenshot */
+            border-top: 2px solid #10b981;
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.08);
         }
         
-        [data-theme="dark"] .hiw-card.highlighted {
-            background: rgba(16, 185, 129, 0.05); /* Dark theme matching */
+        [data-theme="dark"] .hiw-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        
+        [data-theme="dark"] .hiw-card:hover {
+            background: rgba(30, 41, 59, 0.95);
+            border-color: #10b981;
         }
 
         .hiw-card h3 {
@@ -353,7 +417,14 @@
         
         .hiw-grid.in-view .slide-left,
         .hiw-grid.in-view .slide-up,
-        .hiw-grid.in-view .slide-right {
+        .hiw-grid.in-view .slide-right,
+        .pricing-grid.in-view .anim-left,
+        .pricing-grid.in-view .anim-right,
+        .faq-grid.in-view .anim-left,
+        .faq-grid.in-view .anim-right,
+        .numbers-grid.in-view .anim-left,
+        .numbers-grid.in-view .anim-up,
+        .numbers-grid.in-view .anim-right {
             opacity: 1;
             transform: translate(0, 0);
         }
@@ -381,35 +452,48 @@
     
         /* Why Easy Fishy Section */
         .why-section {
-            background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
+            /* Left (text) = warm light, Right (image) = rich dark amber */
+            background: linear-gradient(135deg, #fffdf5 0%, #fffbeb 100%);
             padding: 150px 5%;
             overflow: hidden;
             position: relative;
         }
         
+        /* Diagonal texture on top */
         .why-section::before {
             content: '';
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(to right, rgba(234, 179, 8, 0.1) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(234, 179, 8, 0.1) 1px, transparent 1px);
-            background-size: 32px 32px;
-            pointer-events: none;
-            z-index: 0;
-            mask-image: radial-gradient(ellipse at 70% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 75%);
-            -webkit-mask-image: radial-gradient(ellipse at 70% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 75%);
+            position: absolute; inset: 0;
+            background-image: repeating-linear-gradient(
+                135deg,
+                rgba(234, 179, 8, 0.08) 0px,
+                rgba(234, 179, 8, 0.08) 1px,
+                transparent 1px,
+                transparent 22px
+            );
+            pointer-events: none; z-index: 0;
         }
         
+        /* Glow blob behind image side */
+        .why-section::after {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 500px; height: 500px;
+            background: radial-gradient(ellipse at center, rgba(234, 88, 12, 0.25) 0%, transparent 70%);
+            pointer-events: none; z-index: 0;
+            border-radius: 50%;
+        }
+        
+        /* Text reads fine on light side */
+
+        
         [data-theme="dark"] .why-section {
-            background: linear-gradient(135deg, #0a0e27 0%, #0f172a 100%);
-            border-top: 1px solid rgba(255,255,255,0.03);
+            background: linear-gradient(135deg, #1a1209 0%, #0f172a 100%);
         }
-        [data-theme="dark"] .why-section::before {
-            background-image: 
-                linear-gradient(to right, rgba(234, 179, 8, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(234, 179, 8, 0.05) 1px, transparent 1px);
+        [data-theme="dark"] .why-section::after {
+            background: radial-gradient(ellipse at center, rgba(234, 88, 12, 0.12) 0%, transparent 70%);
         }
+
         
         .why-container {
             max-width: 1200px;
@@ -615,10 +699,10 @@
         .anim-up { opacity: 0; }
         .anim-down { opacity: 0; }
 
-        .services-grid.in-view .anim-left { animation: slideInLeft 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-        .services-grid.in-view .anim-right { animation: slideInRight 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-        .services-grid.in-view .anim-up { animation: slideInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-        .services-grid.in-view .anim-down { animation: slideInDown 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .services-grid.in-view .anim-left, .anim-left.in-view { animation: slideInLeft 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .services-grid.in-view .anim-right, .anim-right.in-view { animation: slideInRight 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .services-grid.in-view .anim-up, .anim-up.in-view { animation: slideInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .services-grid.in-view .anim-down, .anim-down.in-view { animation: slideInDown 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 
         .delay-1 { animation-delay: 0.2s !important; }
         .delay-2 { animation-delay: 0.4s !important; }
@@ -655,6 +739,324 @@
         }
         [data-theme="light"] footer {
             background: #f8fafc;
+        }
+
+    
+        /* ===== PRICING SECTION ===== */
+        .pricing-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%);
+            padding: 120px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        [data-theme="dark"] .pricing-section {
+            background: linear-gradient(135deg, #0f172a 0%, #042f2e 100%);
+        }
+        .pricing-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            /* Diagonal 45-degree stripes */
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(16, 185, 129, 0.06) 0px,
+                rgba(16, 185, 129, 0.06) 1px,
+                transparent 1px,
+                transparent 20px
+            );
+            pointer-events: none; z-index: 0;
+        }
+        .pricing-section > * { position: relative; z-index: 1; }
+        .pricing-label {
+            font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; color: #10b981; margin-bottom: 14px;
+        }
+        .pricing-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px; font-weight: 800; color: #0f172a; margin-bottom: 14px;
+        }
+        [data-theme="dark"] .pricing-title { color: #f1f5f9; }
+        .pricing-subtitle {
+            font-size: 16px; color: #64748b; margin-bottom: 60px;
+        }
+        [data-theme="dark"] .pricing-subtitle { color: #94a3b8; }
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 30px; max-width: 900px; margin: 0 auto;
+        }
+        .pricing-card {
+            background: #ffffff; border: 1px solid #e2e8f0;
+            border-radius: 24px; padding: 40px 36px; text-align: left;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            border-color: #10b981;
+        }
+        [data-theme="dark"] .pricing-card {
+            background: #1e293b; border-color: #334155;
+        }
+        [data-theme="dark"] .pricing-card:hover { border-color: #10b981; }
+        .pricing-card.popular {
+            border: 2px solid #10b981;
+            box-shadow: 0 8px 30px rgba(16,185,129,0.15);
+        }
+        .popular-badge {
+            position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+            background: #10b981; color: #fff; font-size: 11px; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase;
+            padding: 5px 18px; border-radius: 50px;
+        }
+        .plan-name { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+        [data-theme="dark"] .plan-name { color: #f1f5f9; }
+        .plan-price { font-size: 52px; font-weight: 800; color: #0f172a; line-height: 1; margin-bottom: 6px; }
+        [data-theme="dark"] .plan-price { color: #f1f5f9; }
+        .plan-price span { font-size: 16px; font-weight: 400; color: #64748b; }
+        .plan-desc { font-size: 14px; color: #64748b; margin-bottom: 28px; }
+        .plan-features { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 12px; }
+        .plan-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #374151; }
+        [data-theme="dark"] .plan-features li { color: #cbd5e1; }
+        .plan-features li .check { color: #10b981; font-size: 18px; }
+        .plan-features li.disabled { color: #9ca3af; }
+        .plan-features li.disabled .check { color: #d1d5db; }
+        .plan-btn {
+            display: block; width: 100%; padding: 14px; border-radius: 50px;
+            font-size: 15px; font-weight: 700; text-align: center; cursor: pointer;
+            border: 2px solid #10b981; color: #10b981; background: transparent;
+            transition: all 0.3s ease; text-decoration: none;
+        }
+        .plan-btn:hover { background: #10b981; color: #fff; }
+        .plan-btn.solid { background: #10b981; color: #fff; }
+        .plan-btn.solid:hover { background: #059669; border-color: #059669; }
+        @media (max-width: 700px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            padding: 120px 5%;
+            position: relative; overflow: hidden;
+        }
+        [data-theme="dark"] .faq-section {
+            background: linear-gradient(135deg, #0b1121 0%, #0f172a 100%);
+        }
+        .faq-section::before {
+            content: ''; position: absolute; inset: 0;
+            /* Concentric ring / target circles */
+            background-image: 
+                radial-gradient(circle at 50% 50%, transparent 18px, rgba(99, 102, 241, 0.07) 18px, rgba(99, 102, 241, 0.07) 19px, transparent 19px),
+                radial-gradient(circle at 50% 50%, transparent 36px, rgba(99, 102, 241, 0.04) 36px, rgba(99, 102, 241, 0.04) 37px, transparent 37px);
+            background-size: 80px 80px;
+            background-position: 0 0;
+            pointer-events: none; z-index: 0;
+        }
+        .faq-header { text-align: center; margin-bottom: 60px; position: relative; z-index: 1; }
+        .faq-label {
+            font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; color: #6366f1; margin-bottom: 14px;
+        }
+        .faq-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px; font-weight: 800; color: #0f172a; margin-bottom: 14px;
+        }
+        [data-theme="dark"] .faq-title { color: #f1f5f9; }
+        .faq-subtitle { font-size: 16px; color: #64748b; }
+        [data-theme="dark"] .faq-subtitle { color: #94a3b8; }
+        .faq-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 24px; max-width: 1100px; margin: 0 auto;
+            position: relative; z-index: 1;
+        }
+        .faq-card {
+            background: #ffffff; border: 1px solid #e2e8f0;
+            border-radius: 20px; padding: 32px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .faq-card:hover {
+            border-color: #6366f1;
+            box-shadow: 0 20px 40px rgba(99,102,241,0.1);
+            transform: translateY(-5px);
+        }
+        [data-theme="dark"] .faq-card { background: #1e293b; border-color: #334155; }
+        [data-theme="dark"] .faq-card:hover { border-color: #818cf8; }
+        .faq-card.highlighted {
+            border-color: #6366f1;
+            box-shadow: 0 8px 30px rgba(99,102,241,0.12);
+        }
+        .faq-q { font-size: 17px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
+        [data-theme="dark"] .faq-q { color: #f1f5f9; }
+        .faq-a { font-size: 14px; color: #64748b; line-height: 1.6; margin: 0; }
+        [data-theme="dark"] .faq-a { color: #cbd5e1; }
+        @media (max-width: 700px) { .faq-grid { grid-template-columns: 1fr; } }
+
+        /* ===== NUMBERS SECTION ===== */
+        .numbers-section {
+            background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+            padding: 120px 5%; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        [data-theme="dark"] .numbers-section {
+            background: linear-gradient(135deg, #0f172a 0%, #042f2e 100%);
+        }
+        .numbers-section::before {
+            content: ''; position: absolute; inset: 0;
+            /* Radial wave / ripple emanating from center */
+            background-image:
+                radial-gradient(ellipse at 50% 50%, transparent 60px, rgba(16,185,129,0.09) 60px, rgba(16,185,129,0.09) 61px, transparent 61px),
+                radial-gradient(ellipse at 50% 50%, transparent 120px, rgba(16,185,129,0.07) 120px, rgba(16,185,129,0.07) 121px, transparent 121px),
+                radial-gradient(ellipse at 50% 50%, transparent 180px, rgba(16,185,129,0.05) 180px, rgba(16,185,129,0.05) 181px, transparent 181px),
+                radial-gradient(ellipse at 50% 50%, transparent 240px, rgba(16,185,129,0.03) 240px, rgba(16,185,129,0.03) 241px, transparent 241px);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            pointer-events: none; z-index: 0;
+        }
+        .numbers-section > * { position: relative; z-index: 1; }
+        .numbers-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px; font-weight: 800; color: #0f172a; margin-bottom: 14px;
+        }
+        [data-theme="dark"] .numbers-title { color: #f1f5f9; }
+        .numbers-subtitle { font-size: 16px; color: #64748b; margin-bottom: 70px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        [data-theme="dark"] .numbers-subtitle { color: #94a3b8; }
+        .numbers-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 30px; max-width: 1000px; margin: 0 auto;
+        }
+        .number-item { padding: 20px; }
+        .number-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 68px; font-weight: 800;
+            color: #10b981; line-height: 1; margin-bottom: 12px;
+            display: block;
+        }
+        .number-label {
+            font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 8px;
+        }
+        [data-theme="dark"] .number-label { color: #f1f5f9; }
+        .number-desc { font-size: 14px; color: #64748b; line-height: 1.5; }
+        [data-theme="dark"] .number-desc { color: #94a3b8; }
+        @media (max-width: 700px) { .numbers-grid { grid-template-columns: 1fr; } .number-value { font-size: 52px; } }
+
+    
+        /* Ensure anim-left/right start hidden before in-view */
+        .pricing-grid .anim-left,
+        .pricing-grid .anim-right,
+        .faq-grid .anim-left,
+        .faq-grid .anim-right {
+            opacity: 0;
+        }
+        .pricing-grid.in-view .anim-left {
+            animation: slideInLeft 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        .pricing-grid.in-view .anim-right {
+            animation: slideInRight 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+        }
+        .faq-grid.in-view .anim-left {
+            animation: slideInLeft 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        .faq-grid.in-view .anim-right {
+            animation: slideInRight 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+        }
+        
+        /* Numbers section anim */
+        .numbers-grid .anim-left,
+        .numbers-grid .anim-up,
+        .numbers-grid .anim-right {
+            opacity: 0;
+        }
+        .numbers-grid.in-view .anim-left {
+            animation: slideInLeft 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        .numbers-grid.in-view .anim-up {
+            animation: slideInUp 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+        }
+        .numbers-grid.in-view .anim-right {
+            animation: slideInRight 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
+        }
+
+    
+        /* ===== IMAGE VIGNETTE EFFECTS ===== */
+        /* Darkness radiates from images and fades outward - not at section edges */
+
+        /* Why Easy Fishy - image gets inner shadow + radial dark halo in bg */
+        .why-image-wrapper {
+            position: relative;
+            border-radius: 24px;
+        }
+        .why-image-wrapper img {
+            position: relative; z-index: 1;
+            box-shadow:
+                0 0 0 1px rgba(0,0,0,0.08),
+                0 25px 60px rgba(0,0,0,0.32),   /* soft drop shadow */
+                inset 0 0 80px rgba(0,0,0,0.45); /* inner vignette */
+        }
+        /* Dark halo backdrop behind the image that fades outward */
+        .why-image-wrapper::before {
+            content: '';
+            position: absolute;
+            /* Expand beyond image bounds */
+            top: -30px; left: -30px; right: -30px; bottom: -30px;
+            border-radius: 32px;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, transparent 75%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Our Services - dark halo around each card's image */
+        .service-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+        }
+        .service-img-wrapper img {
+            display: block; width: 100%; height: 200px; object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        /* Inner vignette on service images */
+        .service-img-wrapper::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.5) 100%);
+            pointer-events: none;
+            border-radius: 12px 12px 0 0;
+        }
+
+        /* Hero section right-side image cards */
+        .grid-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-card::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.45) 100%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        /* Section-level gentle vignette: dark near center image, light at edges */
+        .why-section .why-container {
+            /* Subtle glow/shadow that signals image area is the focus */
+            position: relative;
+        }
+        
+        /* Ambient glow around image column for Why section */
+        .why-image-content {
+            position: relative;
+        }
+        .why-image-content::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%; height: 120%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 50%;
         }
 
     </style>
@@ -850,8 +1252,8 @@
             <div class="hiw-subtitle">HERE'S HOW IT WORKS</div>
             <h2 class="hiw-title">How does Easy Fishy work?</h2>
             <p class="hiw-desc">Get started in just 3 simple steps &mdash; from capturing the fish image to instantly receiving a highly accurate freshness grade.</p>
-
-                        <!-- Desktop Visual Stepper -->
+ 
+            <!-- Desktop Visual Stepper -->
             <div class="hiw-stepper">
                 <div class="stepper-col anim-down delay-1">
                     <div class="step-circle">1</div>
@@ -879,7 +1281,7 @@
             <!-- Content Grid -->
             <div class="hiw-grid">
                 <!-- Step 1 Info -->
-                <div class="hiw-card slide-left">
+                <div class="hiw-card highlighted slide-left">
                     <h3>Upload Fish Image</h3>
                     <p>Simply take a high-quality photo of the whole fish or upload an existing image directly into our secure platform.</p>
                 </div>
@@ -889,7 +1291,7 @@
                     <p>Our deep learning models instantly analyze the fish features to compute a verified freshness and quality grade.</p>
                 </div>
                 <!-- Step 3 Info -->
-                <div class="hiw-card slide-right">
+                <div class="hiw-card highlighted slide-right">
                     <h3>View Quality Report</h3>
                     <p>Instantly receive your comprehensive freshness report, species identification, and a recommended market price.</p>
                 </div>
@@ -940,6 +1342,95 @@
             </div>
         </section>
 
+
+        <!-- Pricing Section -->
+        <section class="pricing-section" id="pricing">
+            <div class="pricing-label">SIMPLE PRICING</div>
+            <h2 class="pricing-title">Simple, Transparent Pricing</h2>
+            <p class="pricing-subtitle">Choose the plan that best fits your freshness detection needs.</p>
+            <div class="pricing-grid">
+                <!-- Basic Plan -->
+                <div class="pricing-card anim-left">
+                    <div class="plan-name">Basic</div>
+                    <div class="plan-price">Free<span>/forever</span></div>
+                    <p class="plan-desc">Essential tools for independent fish vendors.</p>
+                    <ul class="plan-features">
+                        <li><i class="material-icons check">check_circle</i> 10 freshness scans/month</li>
+                        <li><i class="material-icons check">check_circle</i> Basic species recognition</li>
+                        <li><i class="material-icons check">check_circle</i> PDF quality reports</li>
+                        <li class="disabled"><i class="material-icons check">radio_button_unchecked</i> Cloud analytics dashboard</li>
+                        <li class="disabled"><i class="material-icons check">radio_button_unchecked</i> Priority AI processing</li>
+                    </ul>
+                    <a href="signin.html" class="plan-btn">Get Started</a>
+                </div>
+                <!-- Premium Plan -->
+                <div class="pricing-card popular anim-right">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <div class="plan-name">Professional</div>
+                    <div class="plan-price">₹499<span>/month</span></div>
+                    <p class="plan-desc">Complete freshness management for your business.</p>
+                    <ul class="plan-features">
+                        <li><i class="material-icons check">check_circle</i> <strong>Everything in Basic, plus:</strong></li>
+                        <li><i class="material-icons check">check_circle</i> Unlimited freshness scans</li>
+                        <li><i class="material-icons check">check_circle</i> Advanced species recognition (50+ types)</li>
+                        <li><i class="material-icons check">check_circle</i> Cloud analytics dashboard</li>
+                        <li><i class="material-icons check">check_circle</i> Priority AI processing &amp; alerts</li>
+                    </ul>
+                    <a href="signin.html" class="plan-btn solid">Upgrade to Pro</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+            <div class="faq-header">
+                <div class="faq-label">GOT QUESTIONS?</div>
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                <p class="faq-subtitle">Common questions about using Easy Fishy for your seafood business.</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-card anim-left">
+                    <div class="faq-q">How accurate is Easy Fishy's AI?</div>
+                    <p class="faq-a">Our deep learning model achieves 98.5% accuracy on over 50 fish species, trained on a dataset of 100,000+ labeled images from professional seafood inspectors.</p>
+                </div>
+                <div class="faq-card highlighted anim-right">
+                    <div class="faq-q">Can I use Easy Fishy offline?</div>
+                    <p class="faq-a">Yes! Our lightweight on-device model allows up to 10 scans offline without internet. Results sync automatically when you reconnect.</p>
+                </div>
+                <div class="faq-card anim-left">
+                    <div class="faq-q">How does the grading system work?</div>
+                    <p class="faq-a">Easy Fishy assigns a Grade A–E based on eye clarity, gill color, skin texture & odor indicators, alongside an estimated remaining shelf-life in hours.</p>
+                </div>
+                <div class="faq-card anim-right">
+                    <div class="faq-q">Is my scan data private?</div>
+                    <p class="faq-a">Absolutely. Scan data is encrypted end-to-end. We never share your business data with third parties. You retain full ownership of all your scans.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Numbers Tell Our Story Section -->
+        <section class="numbers-section" id="numbers">
+            <h2 class="numbers-title">Numbers tell our story</h2>
+            <p class="numbers-subtitle">A snapshot of the markets we help stay safe, profitable, and confident every single day.</p>
+            <div class="numbers-grid">
+                <div class="number-item anim-left">
+                    <span class="number-value" data-target="10000" data-suffix="K+">0</span>
+                    <div class="number-label">Fish Scanned</div>
+                    <p class="number-desc">Freshness verified and inspection results delivered in real time.</p>
+                </div>
+                <div class="number-item anim-up">
+                    <span class="number-value" data-target="98.5" data-suffix="%" data-decimal="1">0</span>
+                    <div class="number-label">Model Accuracy</div>
+                    <p class="number-desc">Industry-leading detection accuracy across 50+ species verified in testing.</p>
+                </div>
+                <div class="number-item anim-right">
+                    <span class="number-value" data-target="500" data-suffix="+">0</span>
+                    <div class="number-label">Markets Served</div>
+                    <p class="number-desc">Fish vendors and markets trusting Easy Fishy for quality assurance.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Animated Footer -->
         <footer>
             <div class="wave-container">
@@ -964,35 +1455,61 @@
             <div class="bubble bubble-6"></div>
             <div class="bubble bubble-7"></div>
             
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="footer-logo-icon">🐟</span>
-                    <span>Easy Fishy</span>
+            <!-- Footer Content -->
+            <div class="footer-teaser anim-up">
+                Ready to Simplify Seafood Quality?
+            </div>
+
+            <div class="footer-content anim-up">
+                <!-- Column 1: Brand & Desc -->
+                <div class="footer-col brand-col">
+                    <div class="footer-logo">
+                        <span class="footer-logo-icon">🐟</span>
+                        <span>Easy Fishy</span>
+                    </div>
+                    <p class="footer-brand-desc">
+                        Easy Fishy was built to bring peace of mind to seafood lovers and quality inspectors. 
+                        A thoughtful freshness companion designed with love, simplicity, and safety in mind.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="material-icons">language</i></a>
+                        <a href="#" class="social-icon"><i class="material-icons">close</i></a>
+                        <a href="#" class="social-icon"><i class="material-icons">shopping_bag</i></a>
+                        <a href="#" class="social-icon"><i class="material-icons">email</i></a>
+                    </div>
                 </div>
-                
-                <div class="footer-links">
-                    <a href="#" class="footer-link">Home</a>
-                    <a href="#" class="footer-link">Features</a>
-                    <a href="#" class="footer-link">Pricing</a>
-                    <a href="#" class="footer-link">About</a>
-                    <a href="#" class="footer-link">Contact</a>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col links-col">
+                    <h4>QUICK LINKS</h4>
+                    <ul class="footer-ul">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#how-it-works">How it works</a></li>
+                        <li><a href="#why-easy-fishy">Why Easy Fishy?</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
                 </div>
-                
-                <div class="footer-copyright">
-                    FreshFish AI Team © 2026. All rights reserved.
+
+                <!-- Column 3: About -->
+                <div class="footer-col about-col">
+                    <h4>ABOUT EASY FISHY</h4>
+                    <p class="footer-about-text">
+                        Discover our <span class="highlight">thoughtful platform</span> designed to streamline 
+                        <span class="highlight">seafood quality management</span> for modern markets. 
+                        From freshness checks to inventory tracking and emergency <span class="highlight">SOS</span>, 
+                        our <span class="highlight">fish-friendly tools</span> help you stay connected and safe. 
+                        Stay <span class="highlight">protected and informed</span>, whether managing daily 
+                        routines or responding to quality alerts. Join markets who trust Easy Fishy to make 
+                        every day <span class="highlight">safer and simpler</span>.
+                    </p>
                 </div>
-                
-                <div class="social-icons">
-                    <a href="#" class="social-icon">
-                        <i class="material-icons">code</i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="material-icons">email</i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="material-icons">share</i>
-                    </a>
-                </div>
+            </div>
+
+            <div class="footer-bottom anim-up">
+                <p>© Copyright 2026, All Rights Reserved by Easy Fishy AI Team</p>
             </div>
         </footer>
     </div>
@@ -1016,13 +1533,81 @@
 
         const hiwStepper = document.querySelector('.hiw-stepper');
         if (hiwStepper) observer.observe(hiwStepper);
+        
+        const pricingGrid = document.querySelector('.pricing-grid');
+        if (pricingGrid) observer.observe(pricingGrid);
+        const faqGrid = document.querySelector('.faq-grid');
+        if (faqGrid) observer.observe(faqGrid);
+        const numbersGrid = document.querySelector('.numbers-grid');
+        if (numbersGrid) observer.observe(numbersGrid);
+
         const grid = document.querySelector('.hiw-grid');
         if (grid) observer.observe(grid);
 
         const why = document.querySelector('.why-section');
         if (why) observer.observe(why);
 
+        // Footer Elements
+        const footerTeaser = document.querySelector('.footer-teaser');
+        if (footerTeaser) observer.observe(footerTeaser);
+        const footerContent = document.querySelector('.footer-content');
+        if (footerContent) observer.observe(footerContent);
+        const footerBottom = document.querySelector('.footer-bottom');
+        if (footerBottom) observer.observe(footerBottom);
+
     });
+</script>
+
+
+<script>
+    /* Count-up animation for Numbers section */
+    function animateCountUp(el) {
+        const target = parseFloat(el.getAttribute('data-target'));
+        const suffix = el.getAttribute('data-suffix') || '';
+        const isDecimal = el.hasAttribute('data-decimal');
+        const decimals = parseInt(el.getAttribute('data-decimal') || '0');
+        const duration = 2200; // ms
+        const startTime = performance.now();
+        
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = eased * target;
+            
+            if (isDecimal) {
+                el.textContent = current.toFixed(decimals) + suffix;
+            } else {
+                // For large numbers, show K suffix
+                if (target >= 1000 && suffix.includes('K')) {
+                    el.textContent = (current / 1000).toFixed(1).replace('.0', '') + suffix;
+                } else {
+                    el.textContent = Math.round(current) + suffix;
+                }
+            }
+            
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        }
+        requestAnimationFrame(update);
+    }
+    
+    // Observe numbers section
+    const numbersObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.number-value[data-target]').forEach(el => {
+                    animateCountUp(el);
+                });
+                numbersObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    const numbersSection = document.querySelector('.numbers-section');
+    if (numbersSection) numbersObserver.observe(numbersSection);
 </script>
 
 </body>

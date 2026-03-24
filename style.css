@@ -59,22 +59,27 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Navbar */
+/* Navbar - Floating Pill Shape */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 20px; /* Detach from top */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 1200px;
     height: 70px;
     background: var(--nav-bg);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 30px;
+    padding: 0 40px;
     z-index: 1000;
-    border-bottom: 1px solid var(--card-border);
-    transition: background 0.3s, border-color 0.3s;
+    border: 1px solid var(--card-border);
+    border-radius: 100px; /* Semicircle ends (rounded rectangle) */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
 }
 
 .navbar-brand {
@@ -177,13 +182,12 @@ body {
 .poster-container {
     display: flex;
     flex-direction: column;
-    padding-top: 70px; /* Space for navbar */
+    padding-top: 0; /* Hero will extend to top */
 }
 
-/* --- Trimly Style Hero Section --- */
 .hero-section.trimly-style {
     min-height: 100vh;
-    padding: 120px 5% 60px;
+    padding: 160px 5% 60px; /* Increased top padding to accommodate floating navbar */
     background: linear-gradient(135deg, #fffcf0 0%, #ffffff 100%);
     display: flex;
     align-items: center;
@@ -1183,7 +1187,8 @@ footer {
 }
 
 [data-theme="light"] footer {
-    background: linear-gradient(180deg, var(--bg-color) 0%, #e2e8f0 100%);
+    background: #f7fffb;
+    border-top: 1px solid rgba(16, 185, 129, 0.05);
 }
 
 .wave-container {
@@ -1228,9 +1233,40 @@ footer {
 .footer-content {
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 2fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 60px 0;
+    text-align: left;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+[data-theme="light"] .footer-content {
+    border-top-color: rgba(16, 185, 129, 0.1);
+    border-bottom-color: rgba(16, 185, 129, 0.1);
+}
+
+.footer-teaser {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.footer-col h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
 }
 
 .footer-logo {
@@ -1241,56 +1277,71 @@ footer {
     font-size: 24px;
     font-weight: 700;
     color: var(--text-main);
-    margin-bottom: 20px;
 }
-
-.footer-logo-icon {
-    font-size: 30px;
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-}
-
-.footer-links {
-    display: flex;
-    gap: 30px;
+.footer-brand-desc {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.7;
     margin-bottom: 30px;
+    max-width: 380px;
 }
 
-.footer-link {
+.footer-ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-ul li {
+    margin-bottom: 15px;
+}
+
+.footer-ul li a {
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: color 0.3s;
-    position: relative;
+    font-size: 15px;
+    transition: all 0.3s;
 }
 
-.footer-link:hover {
+.footer-ul li a::before {
+    content: '•';
+    margin-right: 12px;
+    color: var(--success-color);
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.footer-ul li a:hover {
     color: var(--accent-blue);
+    padding-left: 5px;
 }
 
-.footer-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent-blue);
-    transition: width 0.3s;
-}
-
-.footer-link:hover::after {
-    width: 100%;
-}
-
-.footer-copyright {
+.footer-about-text {
     color: var(--text-muted);
-    font-size: 12px;
-    margin-bottom: 30px;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.footer-about-text .highlight {
+    color: #0d9488;
+    font-weight: 600;
+}
+
+.footer-bottom {
+    margin-top: 80px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+[data-theme="light"] .footer-bottom {
+    border-top-color: rgba(16, 185, 129, 0.1);
+}
+
+.footer-bottom p {
+    color: var(--text-muted);
+    font-size: 13px;
 }
 
 .social-icons {
@@ -1299,24 +1350,28 @@ footer {
 }
 
 .social-icon {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: var(--bg-secondary);
-    border: 1px solid var(--card-border);
+    background: #f1f5f9;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
+    color: #64748b;
     transition: all 0.3s;
+    font-size: 18px;
+}
+
+[data-theme="dark"] .social-icon {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
 }
 
 .social-icon:hover {
-    background: var(--accent-blue);
+    background: var(--success-color);
     color: white;
-    border-color: var(--accent-blue);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+    transform: translateY(-3px);
 }
 
 /* Floating Fish Animation */
@@ -1614,8 +1669,17 @@ footer {
         grid-template-columns: repeat(2, 1fr);
     }
     
-    .footer-links {
-        flex-wrap: wrap;
-        justify-content: center;
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    .footer-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-brand-desc {
+        max-width: 100%;
     }
 }
