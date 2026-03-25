@@ -1238,15 +1238,21 @@ footer {
 .footer-content {
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 2fr;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 60px;
-    max-width: 1200px;
-    margin: 40px auto;
+    width: 100%;
     padding: 60px 0;
     text-align: left;
     border-top: 1px solid rgba(0,0,0,0.05);
     border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 0;
 }
 
 [data-theme="light"] .footer-content {
@@ -1675,13 +1681,12 @@ footer {
     }
     
     .footer-content {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 40px;
         text-align: center;
     }
     .footer-col {
-        display: flex;
-        flex-direction: column;
+        width: 100%;
         align-items: center;
     }
     .footer-brand-desc {

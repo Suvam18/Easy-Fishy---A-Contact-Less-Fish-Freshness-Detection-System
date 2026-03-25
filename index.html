@@ -403,10 +403,474 @@
         body.is-logged-in #dash-analytics { animation: dashSlideInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.5s; }
         body.is-logged-in #dash-edge      { animation: dashSlideInRight 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.6s; }
 
+        /* Partners Logo Carousel */
+        .partners-section {
+            padding: 80px 5% 40px;
+            background: var(--bg-color);
+            text-align: center;
+            overflow: hidden;
+            border-top: 1px solid var(--nav-border);
+            position: relative;
+            z-index: 10;
+        }
+
+        .partners-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 40px;
+            opacity: 0.6;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo-track {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+
+        .logo-slider {
+            display: flex;
+            align-items: center;
+            gap: 100px;
+            animation: logoScroll 35s linear infinite;
+            padding: 20px 0;
+        }
+
+        .logo-slider:hover {
+            animation-play-state: paused;
+        }
+
+        .partner-logo {
+            height: 40px;
+            filter: none;
+            opacity: 0.8;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            object-fit: contain;
+        }
+
+        .partner-logo:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        @keyframes logoScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 50px)); }
+        }
+
+        /* Promo Cards Section - Small & Textured */
+        .promo-section {
+            padding: 60px 10% 20px;
+            background: var(--bg-color);
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Equal small sizes */
+            gap: 20px;
+        }
+
+        .promo-card {
+            border-radius: 20px;
+            padding: 30px; /* Reduced padding */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+
+        [data-theme="light"] .promo-card {
+            background: radial-gradient(circle at 20% 20%, #f0f9ff 0%, #dbeafe 100%);
+            border: 1px solid #bfdbfe;
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        [data-theme="light"] .promo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(37, 99, 235, 0.2);
+            border-color: #3b82f6;
+            background: radial-gradient(circle at 20% 20%, #e0f2fe 0%, #bfdbfe 100%);
+        }
+
+        [data-theme="light"] .promo-card:hover .promo-title {
+            color: #1d4ed8;
+        }
+
+        .promo-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2563eb;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .promo-title {
+            font-size: 24px; /* Reduced size */
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .promo-desc {
+            font-size: 14px;
+            color: #475569;
+            max-width: 280px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .refer-btn {
+            background: #2563eb;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            width: fit-content;
+            font-size: 14px;
+        }
+
+        .mockup-icon {
+            position: absolute;
+            bottom: -20px;
+            right: 10px;
+            font-size: 100px;
+            opacity: 0.2;
+            /* Removed animation */
+        }
+
+        [data-theme="dark"] .promo-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        [data-theme="dark"] .promo-card:hover {
+            border-color: #60a5fa;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        [data-theme="dark"] .promo-title { color: #ffffff; }
+        [data-theme="dark"] .promo-desc { color: #cbd5e1; }
+        [data-theme="dark"] .promo-label { color: #60a5fa; }
+
+        /* Restored Active Users Metric Layout - Unstop Style */
+        .stats-section {
+            padding: 80px 10% 120px;
+            background: var(--bg-color);
+        }
+
+        .stats-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+
+        .stats-main-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .large-stat {
+            font-size: clamp(60px, 10vw, 130px);
+            font-weight: 800;
+            color: #2563eb;
+            letter-spacing: -6px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            line-height: 1;
+        }
+
+        .user-bubbles {
+            display: inline-flex;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .user-bubble {
+            width: clamp(60px, 7vw, 90px);
+            height: clamp(60px, 7vw, 90px);
+            border-radius: 50%;
+            border: 4px solid var(--bg-color);
+            margin-left: -40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+        .user-bubble:first-child { margin-left: 0; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+        }
+
+        .stat-item h4 {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        [data-theme="dark"] .stat-item p { color: #f1f5f9; }
+
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .large-stat { font-size: 70px; letter-spacing: -2px; }
+            .user-bubble { width: 60px; height: 60px; margin-left: -20px; }
+        }
+
+        @media (max-width: 900px) {
+            .promo-section { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .large-stat { font-size: 60px; letter-spacing: -2px; }
+        }
+        .stats-section {
+            padding: 100px 5%;
+            background: var(--bg-color);
+            border-top: 1px solid var(--nav-border);
+            text-align: left;
+        }
+
+        .stats-main-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .large-stat {
+            font-size: clamp(60px, 10vw, 120px);
+            font-weight: 800;
+            color: #2563eb;
+            line-height: 1;
+            letter-spacing: -4px;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 1;
+        }
+
+        [data-theme="dark"] .large-stat, 
+        [data-theme="dark"] .stat-item p {
+            color: #60a5fa !important; /* Brighter blue for extreme contrast */
+        }
+
+        .counter-animated {
+            font-variant-numeric: tabular-nums;
+            display: inline-block;
+            min-width: 1ch;
+        }
+
+        /* Visibility Fallback: if user is at the bottom, just show it */
+        .stats-section.in-view .large-stat,
+        .stats-section.in-view .anim-up {
+            animation: slideInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            opacity: 1 !important;
+        }
+
+        .user-bubbles {
+            display: flex;
+            align-items: center;
+            margin-left: -20px;
+        }
+
+        .user-bubble {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid var(--bg-color);
+            object-fit: cover;
+            margin-left: -30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .user-bubble:hover {
+            transform: translateY(-10px) scale(1.1);
+            z-index: 10;
+        }
+
+        .floating-icon {
+            position: absolute;
+            color: #eab308;
+            font-size: 24px;
+            animation: floatAnim 4s ease-in-out infinite;
+        }
+
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .stat-item h4 {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-item p {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2563eb;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
         /* Footer Alignment */
         footer {
-            background: var(--bg-color);
+            background: #0f172a;
+            color: #ffffff;
+            padding: 40px 10% 40px;
             transition: background 0.3s ease;
+            text-align: left;
+        }
+
+        [data-theme="light"] footer {
+            background: #f0fdf4; /* Pale green reference */
+            color: #0f172a;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .footer-teaser {
+            text-align: center;
+            padding: 25px 10%;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-teaser::before,
+        .footer-teaser::after {
+            content: '';
+            height: 1px;
+            flex: 1;
+            background: rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] .footer-teaser { color: #94a3b8; }
+        [data-theme="dark"] .footer-teaser::before,
+        [data-theme="dark"] .footer-teaser::after {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .footer-col {
+            flex: 1;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .footer-brand-desc {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        [data-theme="dark"] .footer-brand-desc { color: #94a3b8; }
+
+        .footer-col h4 {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            color: #0f172a;
+        }
+
+        [data-theme="dark"] .footer-col h4 { color: #ffffff; }
+
+        .footer-ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .footer-ul li a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .footer-ul li a:hover {
+            color: #2563eb;
+        }
+
+        .footer-about-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #64748b;
+        }
+
+        [data-theme="dark"] .footer-about-text { color: #94a3b8; }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        [data-theme="dark"] .footer-bottom {
+            border-top-color: rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 900px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 40px;
+            }
         }
 
         .dash-nav-links {
@@ -1305,14 +1769,6 @@
         
 
     
-        footer {
-            background: #0f172a;
-            position: relative;
-            z-index: 10;
-        }
-        [data-theme="light"] footer {
-            background: #f8fafc;
-        }
 
     
         /* ===== PRICING SECTION ===== */
@@ -1632,6 +2088,90 @@
             border-radius: 50%;
         }
 
+        /* --- Mobile Responsiveness --- */
+        
+        /* Hamburger Menu Icon */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-content h1 { font-size: 48px; }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle { display: block; }
+            
+            /* Navbar Mobile Adjustments */
+            .navbar-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--bg-color);
+                flex-direction: column;
+                padding: 40px 5%;
+                transition: left 0.4s ease;
+                z-index: 999;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .navbar-links.active { left: 0; }
+            
+            /* Dashboard Mobile Nav */
+            .dash-nav-links {
+                display: none; /* Hide links on mobile dash nav */
+            }
+            .dashboard-nav {
+                padding: 8px 20px;
+            }
+            .dash-greeting { display: none; } /* Hide greeting text */
+
+            /* Layout Stacking */
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 { font-size: 36px; }
+            .hero-section { padding-top: 120px; text-align: center; }
+            
+            .partners-section { padding: 60px 5% 30px; }
+            .logo-slider { gap: 50px; }
+            .partner-logo { height: 25px; }
+            
+            .dashboard-section { padding-top: 130px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 28px; }
+            .dashboard-title { font-size: 32px; }
+            .dashboard-card { padding: 20px; }
+            .navbar-brand span:last-child { display: none; } /* Hide "Easy Fishy" text on very small screens */
+            
+            .navbar { padding: 0 15px; }
+            .navbar-actions { gap: 10px; }
+            .mobile-toggle { padding: 10px; margin-left: 5px; }
+            
+            .partners-section { padding: 40px 5% 20px; }
+            .logo-slider { gap: 30px; }
+            .partner-logo { height: 20px; }
+
+            .stats-section { padding: 60px 5%; text-align: center; }
+            .stats-main-row { flex-direction: column; gap: 20px; margin-bottom: 40px; }
+            .large-stat { font-size: 50px; letter-spacing: -2px; justify-content: center; }
+            .user-bubbles { margin-left: 0; margin-top: 10px; }
+            .user-bubble { width: 60px; height: 60px; margin-left: -20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .stat-item p { font-size: 24px; }
+            .floating-icon { display: none; } /* Hide floating icons on small mobile to avoid clutter */
+        }
     </style>
 </head>
 <body data-theme="dark">
@@ -1644,7 +2184,10 @@
             <span class="navbar-icon">🐟</span>
             <span>Easy Fishy</span>
         </div>
-        <div class="navbar-links">
+        <button class="mobile-toggle" id="mobileMenuBtn">
+            <i class="material-icons">menu</i>
+        </button>
+        <div class="navbar-links" id="navbarLinks">
             <a href="#home" class="navbar-link">Home</a>
             <a href="#features" class="navbar-link">Features</a>
             <a href="#how-it-works" class="navbar-link">How it works</a>
@@ -2131,6 +2674,30 @@
             </div>
         </section>
 
+        <!-- Partners Carousel Section -->
+    <section class="partners-section">
+        <h3 class="partners-title">Trusted by Industry Veterans</h3>
+        <div class="logo-track">
+            <div class="logo-slider">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="partner-logo" alt="Nike">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="partner-logo" alt="Apple" style="filter: var(--logo-invert);">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="partner-logo" alt="Google">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" class="partner-logo" alt="Facebook">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png" class="partner-logo" alt="Tesla">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" class="partner-logo" alt="Meta">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Pepsi_logo_2014.svg" class="partner-logo" alt="Pepsi">
+                <!-- Duplicate for infinite scroll -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="partner-logo" alt="Nike">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="partner-logo" alt="Apple" style="filter: var(--logo-invert);">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="partner-logo" alt="Google">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" class="partner-logo" alt="Facebook">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png" class="partner-logo" alt="Tesla">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" class="partner-logo" alt="Meta">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Pepsi_logo_2014.svg" class="partner-logo" alt="Pepsi">
+            </div>
+        </div>
+    </section>
+
         <!-- FAQ Section -->
         <section class="faq-section" id="faq">
             <div class="faq-header">
@@ -2158,55 +2725,71 @@
             </div>
         </section>
 
-        <!-- Numbers Tell Our Story Section -->
-        <section class="numbers-section" id="numbers">
-            <h2 class="numbers-title">Numbers tell our story</h2>
-            <p class="numbers-subtitle">A snapshot of the markets we help stay safe, profitable, and confident every single day.</p>
-            <div class="numbers-grid">
-                <div class="number-item anim-left">
-                    <span class="number-value" data-target="10000" data-suffix="K+">0</span>
-                    <div class="number-label">Fish Scanned</div>
-                    <p class="number-desc">Freshness verified and inspection results delivered in real time.</p>
-                </div>
-                <div class="number-item anim-up">
-                    <span class="number-value" data-target="98.5" data-suffix="%" data-decimal="1">0</span>
-                    <div class="number-label">Model Accuracy</div>
-                    <p class="number-desc">Industry-leading detection accuracy across 50+ species verified in testing.</p>
-                </div>
-                <div class="number-item anim-right">
-                    <span class="number-value" data-target="500" data-suffix="+">0</span>
-                    <div class="number-label">Markets Served</div>
-                    <p class="number-desc">Fish vendors and markets trusting Easy Fishy for quality assurance.</p>
-                </div>
+        <section class="promo-section">
+        <!-- Download App Card -->
+        <div class="promo-card download">
+            <div class="promo-label">Download</div>
+            <h2 class="promo-title">Easy Fishy App</h2>
+            <div class="app-badges">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" class="app-badge" alt="App Store">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" class="app-badge" alt="Play Store">
             </div>
-        </section>
+            <div class="mockup-icon">📱</div>
+        </div>
 
-        <!-- Animated Footer -->
-        <footer>
-            <div class="wave-container">
-                <div class="wave"></div>
-                <div class="wave"></div>
-                <div class="wave"></div>
+        <!-- Refer Card -->
+        <div class="promo-card refer">
+            <div class="promo-label">Refer & Win</div>
+            <h2 class="promo-title">Refer & Earn Rewards</h2>
+            <p class="promo-desc">MacBook, iPhone, Cash Rewards and more!</p>
+            <a href="#" class="refer-btn">Refer Now</a>
+        </div>
+    </section>
+
+    <!-- Impact Metrics Section -->
+    <section class="stats-section">
+        <div class="stats-label">Active Users</div>
+        <div class="stats-main-row">
+            <h2 class="large-stat">
+                100,000
+                <span class="user-bubbles">
+                    <img src="assets/user1.png" class="user-bubble" alt="User">
+                    <img src="assets/user2.png" class="user-bubble" alt="User">
+                    <img src="assets/user3.png" class="user-bubble" alt="User">
+                </span>
+                +
+            </h2>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h4>Freshness Scans</h4>
+                <p><span class="stat-counter" data-target="22300000" data-format="compact" data-suffix="M+" data-divisor="1000000">0</span></p>
             </div>
-            
-            <!-- Floating Fish -->
-            <div class="floating-fish fish-1">🐟</div>
-            <div class="floating-fish fish-2">🐠</div>
-            <div class="floating-fish fish-3">🐡</div>
-            <div class="floating-fish fish-4">🦈</div>
-            <div class="floating-fish fish-5">🐙</div>
-            
-            <!-- Bubbles -->
-            <div class="bubble bubble-1"></div>
-            <div class="bubble bubble-2"></div>
-            <div class="bubble bubble-3"></div>
-            <div class="bubble bubble-4"></div>
-            <div class="bubble bubble-5"></div>
-            <div class="bubble bubble-6"></div>
-            <div class="bubble bubble-7"></div>
-            
+            <div class="stat-item">
+                <h4>Quality Reports</h4>
+                <p><span class="stat-counter" data-target="140000" data-format="compact" data-suffix="K+" data-divisor="1000">0</span></p>
+            </div>
+            <div class="stat-item">
+                <h4>Markets &amp; Vendors</h4>
+                <p><span class="stat-counter" data-target="42000" data-format="compact" data-suffix="K+" data-divisor="1000">0</span></p>
+            </div>
+            <div class="stat-item">
+                <h4>Brands trust us</h4>
+                <p><span class="stat-counter" data-target="800" data-suffix="+">0</span></p>
+            </div>
+            <div class="stat-item">
+                <h4>Cities Covered</h4>
+                <p><span class="stat-counter" data-target="78" data-suffix="+">0</span></p>
+            </div>
+        </div>
+    </section>
+
+
+        <!-- Simple Footer -->
+        <footer>
             <!-- Footer Content -->
-            <div class="footer-teaser anim-up">
+            <div class="footer-teaser">
                 Ready to Simplify Seafood Quality?
             </div>
 
@@ -2297,6 +2880,9 @@
         const why = document.querySelector('.why-section');
         if (why) observer.observe(why);
 
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) observer.observe(statsSection);
+
         // Footer Elements
         const footerTeaser = document.querySelector('.footer-teaser');
         if (footerTeaser) observer.observe(footerTeaser);
@@ -2304,60 +2890,48 @@
         if (footerContent) observer.observe(footerContent);
         const footerBottom = document.querySelector('.footer-bottom');
         if (footerBottom) observer.observe(footerBottom);
-
     });
 </script>
 
-
 <script>
-    /* Count-up animation for Numbers section */
-    function animateCountUp(el) {
-        const target = parseFloat(el.getAttribute('data-target'));
-        const suffix = el.getAttribute('data-suffix') || '';
-        const isDecimal = el.hasAttribute('data-decimal');
-        const decimals = parseInt(el.getAttribute('data-decimal') || '0');
-        const duration = 2200; // ms
-        const startTime = performance.now();
-        
-        function update(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = eased * target;
-            
-            if (isDecimal) {
-                el.textContent = current.toFixed(decimals) + suffix;
-            } else {
-                // For large numbers, show K suffix
-                if (target >= 1000 && suffix.includes('K')) {
-                    el.textContent = (current / 1000).toFixed(1).replace('.0', '') + suffix;
+    /* Scroll-triggered count-up for stat-counter elements */
+    (function() {
+        function animateStat(el) {
+            const target = parseFloat(el.getAttribute('data-target'));
+            const suffix = el.getAttribute('data-suffix') || '';
+            const divisor = parseFloat(el.getAttribute('data-divisor') || '1');
+            const duration = 1800;
+            const startTime = performance.now();
+
+            function update(now) {
+                const progress = Math.min((now - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = eased * target;
+
+                if (divisor > 1) {
+                    const val = current / divisor;
+                    el.textContent = (Number.isInteger(val) ? val : val.toFixed(1)) + suffix;
                 } else {
                     el.textContent = Math.round(current) + suffix;
                 }
+
+                if (progress < 1) requestAnimationFrame(update);
             }
-            
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            }
+            requestAnimationFrame(update);
         }
-        requestAnimationFrame(update);
-    }
-    
-    // Observe numbers section
-    const numbersObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.querySelectorAll('.number-value[data-target]').forEach(el => {
-                    animateCountUp(el);
-                });
-                numbersObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    
-    const numbersSection = document.querySelector('.numbers-section');
-    if (numbersSection) numbersObserver.observe(numbersSection);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.stat-counter').forEach(animateStat);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const statsGrid = document.querySelector('.stats-grid');
+        if (statsGrid) observer.observe(statsGrid);
+    })();
 </script>
 
 </body>

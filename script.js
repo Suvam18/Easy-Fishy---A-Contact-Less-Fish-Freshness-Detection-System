@@ -206,12 +206,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-        if (sessionStorage.getItem('justLoggedIn') === 'true') {
-            showToast(`Welcome back, ${savedUser.firstName}!`);
-            sessionStorage.removeItem('justLoggedIn');
-        }
+    if (sessionStorage.getItem('justLoggedIn') === 'true') {
+        sessionStorage.removeItem('justLoggedIn');
+        showNotification('Welcome back!', 'success');
+    }
 
-    function showToast(message) {
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navbarLinks = document.getElementById('navbarLinks');
+    
+    if (mobileMenuBtn && navbarLinks) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.textContent = navbarLinks.classList.contains('active') ? 'close' : 'menu';
+        });
+        
+        // Close menu when clicking a link
+        navbarLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbarLinks.classList.remove('active');
+                mobileMenuBtn.querySelector('i').textContent = 'menu';
+            });
+        });
+    }
+
+    function showNotification(message, type = 'info') {
         // Create toast elements if they don't exist
         let container = document.querySelector('.toast-container');
         if (!container) {
@@ -240,4 +260,59 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 600);
         }, 4000);
     }
+
+    // --- Counter Animation ---
+    function animateCounters() {
+        const counters = document.querySelectorAll('.counter-animated');
+        if (counters.length === 0) return;
+
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseFloat(counter.getAttribute('data-target'));
+                    const suffix = counter.getAttribute('data-suffix') || '';
+                    const duration = 2000;
+                    const startTime = performance.now();
+
+                    const updateCount = (currentTime) => {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const easeProgress = progress * (2 - progress);
+                        const currentCount = easeProgress * target;
+
+                        if (target % 1 === 0) {
+                            counter.innerText = Math.floor(currentCount).toLocaleString() + suffix;
+                        } else {
+                            counter.innerText = currentCount.toFixed(1) + suffix;
+                        }
+
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            if (target % 1 === 0) {
+                                counter.innerText = Math.floor(target).toLocaleString() + suffix;
+                            } else {
+                                counter.innerText = target.toFixed(1) + suffix;
+                            }
+                        }
+                    };
+
+                    requestAnimationFrame(updateCount);
+                    observer.unobserve(counter);
+                }
+            });
+        }, observerOptions);
+
+        counters.forEach(counter => {
+            observer.observe(counter);
+        });
+    }
+
+    animateCounters();
 });
