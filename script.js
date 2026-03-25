@@ -112,26 +112,104 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedUser = JSON.parse(localStorage.getItem('easyFishyUser'));
 
     if (authContainer && savedUser && savedUser.firstName) {
-        // Replace guest buttons with user greeting and logout
-        authContainer.innerHTML = `
-            <span id="user-name" style="color: var(--text-main); font-weight: 500; font-size: 14px;">Hi, ${savedUser.firstName}!</span>
-            <button id="logout-btn" class="signin-btn" style="background: #ef4444; color: white; border: none; cursor: pointer;">Log out</button>
-        `;
+        // Apply logged-in state to body
+        document.body.classList.add('is-logged-in');
 
-        const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('easyFishyUser');
-                window.location.reload();
+        // Populate dashboard and profile info
+        const navGreeting = document.getElementById('nav-user-greeting');
+        if (navGreeting) navGreeting.textContent = `Hi, ${savedUser.firstName} !`;
+
+        const profName = document.getElementById('prof-name');
+        if (profName) profName.textContent = `${savedUser.firstName} ${savedUser.lastName || ''}`;
+
+        const profEmail = document.getElementById('prof-email');
+        if (profEmail) profEmail.textContent = savedUser.email;
+
+        // Profile Dropdown Toggle
+        const profileTrigger = document.getElementById('profileTrigger');
+        const profileDropdown = document.getElementById('profileDropdown');
+        if (profileTrigger && profileDropdown) {
+            profileTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('active');
             });
+            // Close on click outside
+            document.addEventListener('click', () => {
+                profileDropdown.classList.remove('active');
+            });
+            profileDropdown.addEventListener('click', (e) => e.stopPropagation());
         }
 
-        // Show welcome toast if just logged in
+        // Dashboard Theme Toggle Sync
+        const dashThemeToggle = document.getElementById('dashThemeToggle');
+        if (dashThemeToggle) {
+            dashThemeToggle.addEventListener('click', () => {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme, themeIcon);
+                // Also update the dash icon
+                const dashIcon = dashThemeToggle.querySelector('i');
+                if (dashIcon) updateThemeIcon(newTheme, dashIcon);
+            });
+            // Initial icon sync for dashboard
+            const currentTheme = body.getAttribute('data-theme');
+            const dashIcon = dashThemeToggle.querySelector('i');
+            if (dashIcon) updateThemeIcon(currentTheme, dashIcon);
+        }
+
+        const logoutHandler = () => {
+            localStorage.removeItem('easyFishyUser');
+            document.body.classList.remove('is-logged-in');
+            window.location.reload();
+        };
+
+        const dashLogoutBtn = document.getElementById('dashboard-logout-btn');
+        const dashLogoutBtnNav = document.getElementById('dashboard-logout-btn-nav');
+        
+        if (dashLogoutBtn) dashLogoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            logoutHandler();
+        });
+        if (dashLogoutBtnNav) dashLogoutBtnNav.addEventListener('click', (e) => {
+            e.preventDefault();
+            logoutHandler();
+        });
+
+        // Smooth Scroll for Dashboard Links
+        const dashLinks = document.querySelectorAll('.dash-nav-link');
+        dashLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetId = link.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offset = 100; // Account for fixed navbar
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+
+                        // Trigger visual "auto-hover" highlight
+                        targetElement.classList.add('auto-hover');
+                        setTimeout(() => {
+                            targetElement.classList.remove('auto-hover');
+                        }, 2000); // Highlight for 2 seconds
+                    }
+                }
+            });
+        });
+    }
+
         if (sessionStorage.getItem('justLoggedIn') === 'true') {
             showToast(`Welcome back, ${savedUser.firstName}!`);
             sessionStorage.removeItem('justLoggedIn');
         }
-    }
 
     function showToast(message) {
         // Create toast elements if they don't exist

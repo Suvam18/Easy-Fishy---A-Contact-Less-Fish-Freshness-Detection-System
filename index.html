@@ -8,15 +8,588 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Modern Services Section */
-        .services-section {
-            background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
-            overflow: hidden;
-            padding: 80px 20px;
-            text-align: center;
-            color: #1a202c;
+                /* Dashboard Section */
+        .dashboard-section {
+            padding: 120px 5%;
+            background: var(--dash-bg, linear-gradient(135deg, #fffcf0 0%, #ffffff 100%));
+            min-height: 100vh;
+            display: none; /* Hidden by default */
             position: relative;
             z-index: 10;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Grid Texture */
+        .dashboard-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, var(--dash-grid, rgba(234, 179, 8, 0.1)) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--dash-grid, rgba(234, 179, 8, 0.1)) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .dashboard-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 16px;
+        }
+
+        .dashboard-subtitle {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05), transparent 70%);
+            pointer-events: none;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover .card-icon {
+            background: #10b981;
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .card-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .card-content p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-access {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover .btn-access {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        .status-badge {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 700px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .dashboard-title { font-size: 32px; }
+        }
+
+        .feature-detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .detail-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .detail-pill i {
+            font-size: 14px;
+            color: #10b981;
+        }
+
+        /* Body state for logged in user */
+        body.is-logged-in .hero-section,
+        body.is-logged-in .services-section,
+        body.is-logged-in .hiw-section,
+        body.is-logged-in .why-section,
+        body.is-logged-in .pricing-section,
+        body.is-logged-in .faq-section,
+        body.is-logged-in .numbers-section,
+        body.is-logged-in .navbar {
+            display: none !important;
+        }
+
+        body.is-logged-in .dashboard-section {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        /* Force cards to be visible even if global anim-up is active */
+        .dashboard-card {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+            animation: none !important;
+        }
+
+        /* Dashboard Section Variables (Light Default) */
+        :root {
+            --dash-bg: linear-gradient(135deg, #fffcf0 0%, #ffffff 100%);
+            --dash-grid: rgba(234, 179, 8, 0.1);
+            --dash-nav-bg: #ffffff;
+            --dash-nav-border: #e2e8f0;
+            --dash-card-bg: rgba(255, 255, 255, 0.7);
+            --dash-text: #0f172a;
+            --dash-subtitle: #64748b;
+        }
+
+        /* Dashboard Section Variables (Dark Mode) */
+        [data-theme="dark"] {
+            --dash-bg: linear-gradient(135deg, #0a0e27 0%, #161b3e 100%);
+            --dash-grid: rgba(255, 255, 255, 0.05);
+            --dash-nav-bg: rgba(15, 23, 42, 0.95);
+            --dash-nav-border: rgba(255, 255, 255, 0.1);
+            --dash-card-bg: rgba(30, 41, 59, 0.4);
+            --dash-text: #ffffff;
+            --dash-subtitle: #94a3b8;
+        }
+
+        .dashboard-section {
+            padding: 120px 5%;
+            background: var(--dash-bg);
+            min-height: 100vh;
+            display: none; /* Hidden by default */
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        .dashboard-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, var(--dash-grid) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--dash-grid) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .dashboard-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dashboard-user-info {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            width: 95%;
+            max-width: 1200px;
+        }
+
+        /* White Pill Navbar with centered alignment */
+        .dashboard-nav {
+            background: var(--dash-nav-bg);
+            border: 1px solid var(--dash-nav-border);
+            padding: 12px 35px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .dash-greeting, .dashboard-title, .card-content h3 {
+            color: var(--dash-text) !important;
+            transition: color 0.3s ease;
+        }
+
+        .dashboard-subtitle, .card-content p {
+            color: var(--dash-subtitle) !important;
+            transition: color 0.3s ease;
+        }
+
+        .dashboard-card {
+            background: var(--dash-card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--dash-nav-border);
+            border-radius: 24px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        /* Cool Side-wise Hover Animation (Single Source of Truth) */
+        .dashboard-card:hover, .dashboard-card.auto-hover {
+            transform: translateX(12px);
+            border-color: #eab308;
+            background: var(--dash-card-bg); /* Explicitly keep the current bg, no grey! */
+            box-shadow: 0 15px 35px rgba(234, 179, 8, 0.15);
+        }
+
+        /* Sliding Shine Effect */
+        .dashboard-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(250, 204, 21, 0.1),
+                transparent
+            );
+            transform: skewX(-25deg);
+            transition: 0.5s;
+        }
+
+        .dashboard-card:hover::after, .dashboard-card.auto-hover::after {
+            left: 150%;
+        }
+
+        .dashboard-card:hover .card-visual img, .dashboard-card.auto-hover .card-visual img {
+            transform: scale(1.1);
+        }
+
+        /* Dashboard Entrance Animations (Gathering Effect) */
+        @keyframes dashSlideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes dashSlideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes dashSlideInUp {
+            from { opacity: 0; transform: translateY(100px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes dashSlideInDown {
+            from { opacity: 0; transform: translateY(-100px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Initial state for cards before animation */
+        .dashboard-card {
+            opacity: 0;
+        }
+
+        /* Trigger animations only when logged in */
+        body.is-logged-in #dash-freshness { animation: dashSlideInLeft 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.1s; }
+        body.is-logged-in #dash-species   { animation: dashSlideInDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.2s; }
+        body.is-logged-in #dash-reports   { animation: dashSlideInRight 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.3s; }
+        body.is-logged-in #dash-pricing   { animation: dashSlideInLeft 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.4s; }
+        body.is-logged-in #dash-analytics { animation: dashSlideInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.5s; }
+        body.is-logged-in #dash-edge      { animation: dashSlideInRight 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.6s; }
+
+        /* Footer Alignment */
+        footer {
+            background: var(--bg-color);
+            transition: background 0.3s ease;
+        }
+
+        .dash-nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .dash-nav-link {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .dash-nav-link:hover { color: #eab308; }
+
+        .dash-right-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .dash-greeting {
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .dash-logout-link {
+            color: #0f172a;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: #eab308; /* Yellow */
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.2);
+        }
+
+        .dash-logout-link:hover {
+            background: #facc15;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(234, 179, 8, 0.3);
+        }
+
+        /* Profile Section - Icon Only */
+        .profile-trigger {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .profile-trigger:hover .user-avatar {
+            border-color: #10b981;
+            transform: scale(1.1);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown {
+            position: fixed;
+            top: 90px;
+            right: 40px;
+            width: 280px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            display: none; /* Toggle via JS */
+            z-index: 1001;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown.active {
+            display: block;
+            transform: translateY(0);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .profile-img-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 12px;
+            border: 3px solid #10b981;
+        }
+
+        .profile-name { color: white; font-weight: 700; font-size: 18px; margin-bottom: 4px; }
+        .profile-email { color: #94a3b8; font-size: 12px; margin-bottom: 10px; }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.03);
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-val { color: #10b981; font-weight: 700; font-size: 16px; display: block; }
+        .stat-label { color: #64748b; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .profile-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .info-key { color: #64748b; }
+        .info-val { color: #cbd5e1; font-weight: 500; }
+
+        /* HD Animated Image Holder for Cards */
+        .card-visual {
+            width: 100%;
+            height: 160px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 5px;
+            background: #0f172a;
+        }
+
+        .card-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .dashboard-card:hover .card-visual img {
+            transform: scale(1.1) rotate(1deg);
+        }
+
+        .visual-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.4) 100%);
+            pointer-events: none;
+        }
+
+        .scan-line-mini {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: scanLoop 3s ease-in-out infinite;
+            opacity: 0.6;
+            z-index: 2;
+        }
+
+        @keyframes scanLoop {
+            0% { top: 0; opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% { top: 100%; opacity: 0; }
         }
 
         [data-theme="dark"] .services-section {
@@ -1094,6 +1667,178 @@
     </nav>
 
     <div class="poster-container">
+        <!-- Post-Login Dashboard -->
+        <section class="dashboard-section" id="dashboard">
+            <div class="dashboard-user-info">
+                <div class="dashboard-nav">
+                    <div class="navbar-brand" style="margin: 0;">
+                        <span class="navbar-icon">🐟</span>
+                        <span style="color:var(--dash-text);font-weight:700;font-size:18px;">Easy Fishy</span>
+                    </div>
+                    
+                    <div class="dash-nav-links">
+                        <a href="#dash-freshness" class="dash-nav-link">Freshness</a>
+                        <a href="#dash-species" class="dash-nav-link">Species</a>
+                        <a href="#dash-reports" class="dash-nav-link">Reports</a>
+                        <a href="#dash-pricing" class="dash-nav-link">Pricing</a>
+                        <a href="#dash-analytics" class="dash-nav-link">Analytics</a>
+                        <a href="#dash-edge" class="dash-nav-link">Edge</a>
+                    </div>
+                    
+                    <div class="dash-right-actions">
+                        <span class="dash-greeting" id="nav-user-greeting">Hi, User</span>
+                        
+                        <a href="#" id="dashboard-logout-btn-nav" class="dash-logout-link">Log out</a>
+                        
+                        <div class="profile-trigger" id="profileTrigger">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="user-avatar" alt="User">
+                        </div>
+
+                        <!-- Theme Toggle in Dashboard -->
+                        <button class="theme-toggle" id="dashThemeToggle" style="background:transparent;border:none;color:#94a3b8;cursor:pointer;">
+                            <i class="material-icons">light_mode</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Dropdown -->
+            <div class="profile-dropdown" id="profileDropdown">
+                <div class="profile-header">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="profile-img-large" alt="User">
+                    <div class="profile-name" id="prof-name">User Name</div>
+                    <div class="profile-email" id="prof-email">user@example.com</div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-box">
+                        <span class="stat-val">128</span>
+                        <span class="stat-label">Total Scans</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-val">94%</span>
+                        <span class="stat-label">Avg Freshness</span>
+                    </div>
+                </div>
+                <div class="profile-info-row">
+                    <span class="info-key">Since</span>
+                    <span class="info-val">2024</span>
+                </div>
+                <div class="profile-info-row">
+                    <span class="info-key">Status</span>
+                    <span class="info-val" style="color:#10b981;">Professional</span>
+                </div>
+                <div class="profile-info-row" style="margin-top:20px;">
+                    <a href="#" id="dashboard-logout-btn" class="dashboard-logout" style="width:100%;text-align:center;margin:0;background:#eab308;color:#0f172a;border-radius:100px;font-weight:700;">Log out</a>
+                </div>
+            </div>
+
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <div class="hiw-subtitle">AI-POWERED ANALYSIS HUB</div>
+                    <h2 class="dashboard-title">Dashboard Overview</h2>
+                    <p class="dashboard-subtitle">Monitor your fishing operations with real-time AI-powered seafood assessment tools.</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Feature 1: Instant Freshness Detection -->
+                    <div class="dashboard-card" id="dash-freshness">
+                        <div class="card-visual">
+                            <img src="fish_scanning_hd.png" alt="Freshness Scan">
+                            <div class="scan-line-mini"></div>
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Instant Freshness Detection</h3>
+                            <p>Utilize our latest <strong>AI Vision 3.0</strong> model for millisecond-speed freshness grading based on gill texture and eye clarity.</p>
+                             <div class="feature-detail">
+                                <span class="detail-pill"><i class="material-icons">timer</i> 3s Result</span>
+                                <span class="detail-pill"><i class="material-icons">check_circle</i> 98.5% Acc</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2: Species Recognition -->
+                    <div class="dashboard-card" id="dash-species">
+                        <div class="card-visual">
+                            <img src="https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?auto=format&fit=crop&q=80&w=600" alt="Species ID">
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Species Recognition</h3>
+                            <p>Instantly identify over <strong>50+ commercial species</strong>. Trained on 100k+ global images for perfect market identification.</p>
+                            <div class="feature-detail">
+                                <span class="detail-pill"><i class="material-icons">inventory_2</i> 50+ Species</span>
+                                <span class="detail-pill"><i class="material-icons">public</i> Global</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3: Detailed Quality Reports -->
+                    <div class="dashboard-card" id="dash-reports">
+                        <div class="card-visual">
+                            <img src="goldfish_4k.png" alt="Quality Reports">
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Detailed Quality Reports</h3>
+                            <p>Generate <strong>Blockchain-verified</strong> certificates. Includes metadata and suggested storage for total buyer trust.</p>
+                            <div class="feature-detail">
+                                <span class="detail-pill"><i class="material-icons">file_download</i> PDF/CSV</span>
+                                <span class="detail-pill"><i class="material-icons">lock</i> Secure</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4: Dynamic Market Pricing -->
+                    <div class="dashboard-card" id="dash-pricing">
+                        <div class="card-visual">
+                            <img src="underwater_4k.png" alt="Market Trends">
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Dynamic Market Pricing</h3>
+                            <p>Real-time valuation based on freshness. AI suggests **optimal selling price** to maximize daily revenue.</p>
+                            <div class="feature-detail">
+                                <span class="detail-pill"><i class="material-icons">payments</i> Smart Price</span>
+                                <span class="detail-pill"><i class="material-icons">update</i> Live Sync</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 5: Cloud Analytics Dashboard -->
+                    <div class="dashboard-card" id="dash-analytics">
+                        <div class="card-visual">
+                            <img src="https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&q=80&w=800" alt="Cloud Analytics">
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Cloud Analytics Dashboard</h3>
+                            <p>Monitor your entire market from one pane. Track quality trends and receive **automated spoilage alerts**.</p>
+                            <div class="feature-detail">
+                                <span class="detail-pill"><i class="material-icons">bar_chart</i> Analytics</span>
+                                <span class="detail-pill"><i class="material-icons">cloud_done</i> Sync</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 6: Offline Edge Deployment -->
+                    <div class="dashboard-card" id="dash-edge">
+                        <div class="card-visual">
+                            <img src="underwater_hazy_hd.png" alt="Edge Analysis">
+                            <div class="visual-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Offline Edge Deployment</h3>
+                            <p>Deploy lightweight models for **Offline Analysis**. Ideal for deep-sea fishing where internet connectivity is low.</p>
+                            <div class="feature-detail">
+                                <span class="detail-pill"><i class="material-icons">wifi_off</i> Offline Mode</span>
+                                <span class="detail-pill"><i class="material-icons">smartphone</i> Device</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- Trimly Style Hero Section -->
         <section class="hero-section trimly-style" id="home">
             <div class="trimly-container">
