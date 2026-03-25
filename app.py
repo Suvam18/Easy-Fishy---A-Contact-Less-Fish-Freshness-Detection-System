@@ -6,12 +6,15 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
-USERS_FILE = 'users.json'
+import os
+
+USERS_FILE = '/tmp/users.json' if os.environ.get('VERCEL') else 'users.json'
 
 # Ensure users.json exists
 if not os.path.exists(USERS_FILE):
     with open(USERS_FILE, 'w') as f:
         json.dump([], f)
+
 
 def load_users():
     with open(USERS_FILE, 'r') as f:
