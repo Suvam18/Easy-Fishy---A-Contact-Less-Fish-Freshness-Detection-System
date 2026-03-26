@@ -20,7 +20,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Responsive Grid Texture */
+        /* Responsive Grid Texture + Yellow Glow Overlay */
         .dashboard-section::before {
             content: '';
             position: absolute;
@@ -28,11 +28,31 @@
             background-image: 
                 linear-gradient(to right, var(--dash-grid, rgba(234, 179, 8, 0.1)) 1px, transparent 1px),
                 linear-gradient(to bottom, var(--dash-grid, rgba(234, 179, 8, 0.1)) 1px, transparent 1px);
-            background-size: 32px 32px;
+            background-size: 40px 40px;
             pointer-events: none;
             z-index: 0;
-            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
-            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 90%);
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 90%);
+        }
+
+        /* Intense Yellow Glow Spotlight from top-right */
+        .dashboard-section::after {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(234, 179, 8, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(100px);
+            animation: glowPulse 10s infinite alternate ease-in-out;
+        }
+
+        @keyframes glowPulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.2); opacity: 0.9; }
         }
 
         .dashboard-container {
@@ -239,23 +259,354 @@
         /* Dashboard Section Variables (Light Default) */
         :root {
             --dash-bg: linear-gradient(135deg, #fffcf0 0%, #ffffff 100%);
-            --dash-grid: rgba(234, 179, 8, 0.1);
+            --dash-grid: rgba(234, 179, 8, 0.08); /* More visible in light */
             --dash-nav-bg: #ffffff;
-            --dash-nav-border: #e2e8f0;
-            --dash-card-bg: rgba(255, 255, 255, 0.7);
+            --dash-nav-border: rgba(234, 179, 8, 0.1);
+            --dash-card-bg: rgba(255, 255, 255, 0.9);
             --dash-text: #0f172a;
-            --dash-subtitle: #64748b;
+            --dash-subtitle: #475569;
         }
 
         /* Dashboard Section Variables (Dark Mode) */
         [data-theme="dark"] {
-            --dash-bg: linear-gradient(135deg, #0f172a 0%, #0a0e27 100%);
-            --dash-grid: rgba(255, 255, 255, 0.05);
-            --dash-nav-bg: rgba(15, 23, 42, 0.9);
-            --dash-nav-border: rgba(255, 255, 255, 0.1);
-            --dash-card-bg: rgba(30, 41, 59, 0.7);
-            --dash-text: #f1f5f9;
+            --dash-bg: radial-gradient(ellipse at bottom, #111827 0%, #070912 100%);
+            --dash-grid: rgba(234, 179, 8, 0.04);
+            --dash-nav-bg: rgba(10, 15, 30, 0.95);
+            --dash-nav-border: rgba(234, 179, 8, 0.2);
+            --dash-card-bg: rgba(15, 23, 42, 0.85); /* Darker texture base */
+            --dash-text: #f8fafc;
             --dash-subtitle: #94a3b8;
+        }
+
+        /* Texture Utility for cards and divs */
+        .dark-yellow-texture {
+            position: relative;
+            background: var(--dash-card-bg) !important;
+            border: 1px solid rgba(234, 179, 8, 0.15) !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.05) !important;
+            overflow: hidden;
+        }
+
+        /* Subtle mesh pattern inside textured elements */
+        .dark-yellow-texture::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23eab308' fill-opacity='0.02' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        /* Apply to all dashboard cards and specific dashboard divs */
+        .dashboard-card, .tab-panel, .result-box, .upload-zone {
+            position: relative;
+            background: var(--dash-card-bg);
+            border: 1px solid var(--dash-nav-border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        /* Subtle glow spotlight for each card/panel */
+        .dashboard-card::before, .tab-panel::before, .result-box::before, .upload-zone::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(234, 179, 8, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transition: all 0.5s ease;
+        }
+
+        /* Subtle mesh pattern overlay */
+        .dashboard-card::after, .tab-panel::after, .result-box::after, .upload-zone::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 0L8 16M0 8L16 8' stroke='rgba(234,179,8,0.02)' stroke-width='1'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        /* Hover enhancement */
+        .dashboard-card:hover::before, .tab-panel:hover::before, .roadmap-item:hover::before {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(234, 179, 8, 0.15) 0%, transparent 70%);
+        }
+
+        /* Roadmap Item Hover */
+        .roadmap-item:hover {
+            border-color: rgba(234, 179, 8, 0.5) !important;
+            box-shadow: 0 15px 45px rgba(234, 179, 8, 0.1) !important;
+        }
+
+        /* Staggered Animations for Dashboard */
+        .dash-anim-card {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform, opacity;
+        }
+
+        .dash-anim-card.in-view {
+            opacity: 1;
+            transform: translate(0, 0) scale(1) !important;
+        }
+
+        /* Side-Specific Initial States */
+        .anim-left { transform: translateX(-100px); }
+        .anim-right { transform: translateX(100px); }
+        .anim-up { transform: translateY(100px); }
+        .anim-down { transform: translateY(-100px); }
+        .anim-zoom { transform: scale(0.9); }
+
+        /* Roadmap Item Base - Adaptive for light mode */
+        .roadmap-item {
+            padding: 24px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: default;
+            background: var(--dash-card-bg) !important;
+            border: 1px solid var(--dash-nav-border);
+        }
+
+        .roadmap-item i {
+            color: #eab308;
+        }
+
+        /* Feature Focus Background Adaptive */
+        .feature-focus-card {
+            background: var(--dash-card-bg) !important;
+            border: 1px solid var(--dash-nav-border);
+        }
+        
+        [data-theme="dark"] .feature-focus-card {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.95) 0%, rgba(7, 9, 18, 0.98) 100%) !important;
+        }
+
+        [data-theme="light"] .focus-title,
+        [data-theme="light"] .focus-stat {
+            color: #0f172a !important;
+        }
+
+        [data-theme="dark"] .focus-title,
+        [data-theme="dark"] .focus-stat {
+            color: #ffffff !important;
+        }
+
+        /* Roadmap item text in light mode */
+        [data-theme="light"] .roadmap-item h4 {
+            color: #1e293b !important;
+        }
+
+        [data-theme="light"] .roadmap-item p {
+            color: #475569 !important;
+        }
+
+        /* Feature Focus Card - Light Mode Override */
+        [data-theme="light"] .feature-focus-card {
+            background: linear-gradient(145deg, #fffdf0 0%, #fff9e0 100%) !important;
+            border: 1px solid rgba(234, 179, 8, 0.3) !important;
+            box-shadow: 0 20px 60px rgba(234, 179, 8, 0.1) !important;
+        }
+
+        [data-theme="light"] .feature-focus-content p {
+            color: #475569 !important;
+        }
+
+        /* Heatmap in light mode */
+        [data-theme="light"] .heatmap-mockup {
+            background: rgba(255, 249, 220, 0.8) !important;
+            border-color: rgba(234, 179, 8, 0.3) !important;
+        }
+
+        /* Roadmap section border in light mode */
+        [data-theme="light"] .dashboard-roadmap {
+            border-top-color: rgba(234, 179, 8, 0.2);
+        }
+
+        /* Roadmap Section Styles */
+        .dashboard-roadmap {
+            margin-top: 80px;
+            padding-top: 60px;
+            border-top: 1px solid rgba(234, 179, 8, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .roadmap-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .roadmap-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--dash-text);
+            margin-bottom: 12px;
+        }
+
+        .roadmap-header p {
+            color: var(--dash-subtitle);
+            font-size: 16px;
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .roadmap-item {
+            padding: 24px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .roadmap-item i {
+            font-size: 24px;
+            color: #eab308;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .roadmap-item h4 {
+            font-size: 18px;
+            color: var(--dash-text);
+            margin-bottom: 8px;
+        }
+
+        .roadmap-item p {
+            font-size: 14px;
+            color: var(--dash-subtitle);
+            line-height: 1.5;
+        }
+
+        .roadmap-item .status-tag {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(234, 179, 8, 0.2);
+            color: #eab308;
+        }
+
+        /* Feature Focus: Location Based Tracking */
+        .feature-focus-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 50px;
+            border-radius: 30px;
+            align-items: center;
+            margin-top: 40px;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.95) 0%, rgba(7, 9, 18, 0.98) 100%);
+        }
+
+        .feature-focus-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .feature-focus-content p {
+            color: var(--dash-subtitle);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .feature-focus-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-minimal {
+            border-left: 2px solid #eab308;
+            padding-left: 15px;
+        }
+
+        .stat-minimal span {
+            display: block;
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        .stat-minimal strong {
+            font-size: 18px;
+            color: var(--dash-text);
+        }
+
+        .feature-focus-image {
+            position: relative;
+        }
+
+        .heatmap-mockup {
+            width: 100%;
+            height: 300px;
+            background: rgba(10, 15, 30, 0.8);
+            border-radius: 20px;
+            border: 1px solid rgba(234, 179, 8, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Sharp Location Pin Dots */
+        .heat-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.8);
+            box-shadow: 0 0 0 0 currentColor;
+            animation: ping-dot 2s ease-out infinite;
+            opacity: 1;
+        }
+
+        .heat-dot::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            opacity: 0;
+            animation: ring-expand 2s ease-out infinite;
+        }
+
+        @keyframes ping-dot {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        @keyframes ring-expand {
+            0% { transform: scale(0.5); opacity: 0.6; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        @media (max-width: 900px) {
+            .feature-focus-card { grid-template-columns: 1fr; padding: 30px; }
+        }
+
+        /* Hover enhancement for texture elements */
+        .dashboard-card:hover, .tab-panel:hover, .roadmap-item:hover {
+            border-color: rgba(234, 179, 8, 0.5) !important;
+            box-shadow: 0 15px 45px rgba(234, 179, 8, 0.1) !important;
         }
 
         /* Dashboard Unstop-Style Metrics */
@@ -2357,14 +2708,14 @@
 
             <div class="dashboard-container">
                 <div class="dashboard-header">
-                    <div class="hiw-subtitle">AI-POWERED ANALYSIS HUB</div>
+                    <div class="hiw-subtitle" style="color: #eab308; font-weight: 800; letter-spacing: 2px;">⚡ UNLOCK PRIME FRESHNESS!</div>
                     <h2 class="dashboard-title">Dashboard Overview</h2>
-                    <p class="dashboard-subtitle">Monitor your fishing operations with real-time AI-powered seafood assessment tools.</p>
+                    <p class="dashboard-subtitle">Monitor your fishing operations with elite AI-powered seafood intelligence.</p>
                 </div>
 
                 <div class="dashboard-grid">
                     <!-- Feature 1: Instant Freshness Detection -->
-                    <div class="dashboard-card" id="dash-freshness">
+                    <div class="dashboard-card dash-anim-card anim-left" id="dash-freshness">
                         <div class="card-visual">
                             <img src="fish_scanning_hd.png" alt="Freshness Scan">
                             <div class="scan-line-mini"></div>
@@ -2381,7 +2732,7 @@
                     </div>
 
                     <!-- Feature 2: Species Recognition -->
-                    <div class="dashboard-card" id="dash-species">
+                    <div class="dashboard-card dash-anim-card anim-down" id="dash-species">
                         <div class="card-visual">
                             <img src="https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?auto=format&fit=crop&q=80&w=600" alt="Species ID">
                             <div class="visual-overlay"></div>
@@ -2397,7 +2748,7 @@
                     </div>
 
                     <!-- Feature 3: Detailed Quality Reports -->
-                    <div class="dashboard-card" id="dash-reports">
+                    <div class="dashboard-card dash-anim-card anim-right" id="dash-reports">
                         <div class="card-visual">
                             <img src="goldfish_4k.png" alt="Quality Reports">
                             <div class="visual-overlay"></div>
@@ -2413,7 +2764,7 @@
                     </div>
 
                     <!-- Feature 4: Dynamic Market Pricing -->
-                    <div class="dashboard-card" id="dash-pricing">
+                    <div class="dashboard-card dash-anim-card anim-left" id="dash-pricing">
                         <div class="card-visual">
                             <img src="underwater_4k.png" alt="Market Trends">
                             <div class="visual-overlay"></div>
@@ -2429,7 +2780,7 @@
                     </div>
 
                     <!-- Feature 5: Cloud Analytics Dashboard -->
-                    <div class="dashboard-card" id="dash-analytics">
+                    <div class="dashboard-card dash-anim-card anim-up" id="dash-analytics">
                         <div class="card-visual">
                             <img src="https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&q=80&w=800" alt="Cloud Analytics">
                             <div class="visual-overlay"></div>
@@ -2445,7 +2796,7 @@
                     </div>
 
                     <!-- Feature 6: Offline Edge Deployment -->
-                    <div class="dashboard-card" id="dash-edge">
+                    <div class="dashboard-card dash-anim-card anim-right" id="dash-edge">
                         <div class="card-visual">
                             <img src="https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&q=80&w=800" alt="Edge Analysis">
                             <div class="visual-overlay"></div>
@@ -2456,6 +2807,105 @@
                             <div class="feature-detail">
                                 <span class="detail-pill"><i class="material-icons">wifi_off</i> Offline Mode</span>
                                 <span class="detail-pill"><i class="material-icons">smartphone</i> Device</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Roadmap Section -->
+                <div class="dashboard-roadmap" id="dashboard-roadmap-section">
+                    <div class="roadmap-header">
+                        <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.2);">NEXT-GEN PIPELINE</span>
+                        <h3>Scaling Your Seafood Empire</h3>
+                        <p>Advanced modules designed to take your fish quality management to the global level</p>
+                    </div>
+
+                    <div class="roadmap-grid">
+                        <div class="roadmap-item dark-yellow-texture dash-anim-card anim-left">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Smart Analytics Panel</h4>
+                            <p>Go beyond basic results. Track freshness trends (daily/weekly) and AI accuracy scores.</p>
+                            <span class="status-tag">Coming Soon</span>
+                        </div>
+
+                        <div class="roadmap-item dark-yellow-texture dash-anim-card anim-up">
+                            <i class="fas fa-chart-pie"></i>
+                            <h4>Visual Insights (Charts)</h4>
+                            <p>Industry-level polished charts: Freshness distribution, species frequency, and pricing trends.</p>
+                            <span class="status-tag">In Dev</span>
+                        </div>
+
+                        <div class="roadmap-item dark-yellow-texture dash-anim-card anim-right">
+                            <i class="fas fa-brain"></i>
+                            <h4>AI Confidence Score</h4>
+                            <p>Dynamic confidence percentages with color-coded safety indicators (Green/Yellow/Red).</p>
+                            <span class="status-tag">Testing</span>
+                        </div>
+
+                        <div class="roadmap-item dark-yellow-texture dash-anim-card anim-left">
+                            <i class="fas fa-history"></i>
+                            <h4>Scan History & Logs</h4>
+                            <p>Full audit trail of previous scans with original images, results, and timestamps.</p>
+                            <span class="status-tag">Alpha Release</span>
+                        </div>
+
+                        <div class="roadmap-item dark-yellow-texture dash-anim-card anim-down">
+                            <i class="fas fa-bell"></i>
+                            <h4>Smart Recommendations</h4>
+                            <p>Decision assistance: "Safe for consumption" vs "[Warning] High Risk - Do not sell".</p>
+                            <span class="status-tag">Beta</span>
+                        </div>
+
+                        <div class="roadmap-item dark-yellow-texture dash-anim-card anim-right">
+                            <i class="fas fa-users-cog"></i>
+                            <h4>Multi-User Dashboard</h4>
+                            <p>Role-based access for vendors, auditors, and administrators.</p>
+                            <span class="status-tag">Scale Plan</span>
+                        </div>
+
+                        <div class="roadmap-item dark-yellow-texture dash-anim-card anim-left">
+                            <i class="fas fa-bolt"></i>
+                            <h4>Real-Time Detection Feed</h4>
+                            <p>Live, auto-refreshing activity feed for high-volume seafood processing lines.</p>
+                            <span class="status-tag">Edge Ready</span>
+                        </div>
+
+                        <div class="roadmap-item dark-yellow-texture dash-anim-card anim-up">
+                            <i class="fas fa-file-export"></i>
+                            <h4>Export & Audits</h4>
+                            <p>One-click PDF/CSV reports for compliance and supply chain proofs.</p>
+                            <span class="status-tag">Module Link</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Focus: Location Tracking -->
+                    <div class="feature-focus-card dark-yellow-texture dash-anim-card anim-zoom">
+                        <div class="feature-focus-content">
+                            <span class="badge" style="background: #eab308; color: #000; font-weight: 800; border:none;">PRO FEATURE FOCUS</span>
+                            <h2 class="focus-title" style="font-family:'Space Grotesk'; font-size:36px; margin-top:20px;">🌍 Location-Based Tracking</h2>
+                            <p style="font-size:18px; color:var(--dash-subtitle); margin:20px 0 30px; line-height:1.6;">Transform your project with Geospatial Intelligence. Every scan captures GPS coordinates, allowing you to visualize quality patterns across your supply chain.</p>
+                            <div class="feature-focus-stats">
+                                <div class="stat-minimal">
+                                    <span style="color:#eab308; font-size:12px; font-weight:bold; letter-spacing:1px; display:block; margin-bottom:5px;">INSIGHT</span>
+                                    <strong class="focus-stat" style="font-size:24px;">Supply Chain Health</strong>
+                                </div>
+                                <div class="stat-minimal">
+                                    <span style="color:#eab308; font-size:12px; font-weight:bold; letter-spacing:1px; display:block; margin-bottom:5px;">VIZ</span>
+                                    <strong class="focus-stat" style="font-size:24px;">Interactive Heatmaps</strong>
+                                </div>
+                            </div>
+                            <p style="margin-top: 30px; font-style: italic; font-size: 14px; color: var(--dash-subtitle);">"Identify bad suppliers, poor storage zones, and risky markets with ease."</p>
+                            <button id="activate-gps-btn" class="btn-primary-yellow" style="margin-top:40px; padding:18px 35px; font-size:16px; border-radius:12px; background:#eab308; color:#000; font-weight:bold; border:none; cursor:pointer; transition:all 0.3s ease; box-shadow: 0 10px 20px rgba(234, 179, 8, 0.2);">Activate Geotracking</button>
+                        </div>
+                        <div class="feature-focus-image">
+                            <div class="heatmap-mockup">
+                                <!-- Visual representation of a heatmap -->
+                                <div class="heat-dot" style="top: 20%; left: 30%; background: #22c55e;"></div>
+                                <div class="heat-dot" style="top: 50%; left: 60%; background: #ef4444; width: 60px; height: 60px;"></div>
+                                <div class="heat-dot" style="top: 70%; left: 40%; background: #eab308;"></div>
+                                <div class="heat-dot" style="top: 30%; left: 80%; background: #22c55e;"></div>
+                                <div class="heat-dot" style="top: 10%; left: 10%; background: #ef4444;"></div>
+                                <div style="position: absolute; inset: 0; background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg'); background-size: cover; opacity: 0.1; filter: invert(1);"></div>
                             </div>
                         </div>
                     </div>
@@ -2975,6 +3425,12 @@
         
         const pricingGrid = document.querySelector('.pricing-grid');
         if (pricingGrid) observer.observe(pricingGrid);
+        
+        // Dashboard cards and roadmap items
+        document.querySelectorAll('.dash-anim-card').forEach(card => {
+            observer.observe(card);
+        });
+
         const faqGrid = document.querySelector('.faq-grid');
         if (faqGrid) observer.observe(faqGrid);
         const numbersGrid = document.querySelector('.numbers-grid');
@@ -3002,6 +3458,34 @@
 
 <script>
 </script>
+
+<!-- Roadmap Feature Modal -->
+<div id="roadmap-modal" style="
+    display:none;
+    position:fixed; inset:0; z-index:9999;
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(8px);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+" onclick="this.style.display='none'">
+    <div id="roadmap-modal-box" style="
+        max-width:700px; width:100%;
+        border-radius:24px;
+        padding:40px;
+        max-height:90vh;
+        overflow-y:auto;
+        position:relative;
+    " onclick="event.stopPropagation()">
+        <button onclick="document.getElementById('roadmap-modal').style.display='none'" style="
+            position:absolute; top:20px; right:20px;
+            background:rgba(255,255,255,0.1); border:none; border-radius:50%;
+            width:36px; height:36px; font-size:18px; cursor:pointer; color:inherit;
+            display:flex; align-items:center; justify-content:center;
+        ">&times;</button>
+        <div id="roadmap-modal-content"></div>
+    </div>
+</div>
 
 </body>
 </html>

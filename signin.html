@@ -390,15 +390,18 @@
             background: #6366f1; color: #fff; border-color: #6366f1;
         }
 
-        @media (max-width: 700px) {
-            .auth-wrapper { display: block; }
+        @media (max-width: 900px) {
+            .auth-wrapper { flex-direction: column; overflow-y: auto; overflow-x: hidden; height: 100vh; }
 
             .image-panel {
                 width: 100%;
-                height: 100%;
+                height: 35vh; /* Top 35% of screen */
+                min-height: 250px;
+                position: relative;
                 border-radius: 0;
                 box-shadow: none;
-                z-index: 0;
+                z-index: 10;
+                flex: none;
             }
             .auth-wrapper.signup-mode .image-panel {
                 left: 0;
@@ -408,13 +411,13 @@
             .image-caption { display: none !important; }
 
             .image-brand {
-                top: 24px;
-                left: 24px;
+                top: 20px;
+                left: 20px;
                 font-size: 18px;
             }
 
             .back-link {
-                top: 24px;
+                top: 20px;
                 right: 20px;
                 background: rgba(0,0,0,0.4);
                 padding: 6px 12px;
@@ -424,16 +427,23 @@
             }
 
             .form-cell {
-                position: absolute;
-                top: 0; left: 0; width: 100%; height: 100%;
+                position: absolute; /* Kept absolute for the sliding animation context */
+                top: 35vh; /* Starts below the image panel */
+                left: 0; 
+                width: 100%; 
+                height: 65vh; /* Takes up the remaining vertical space */
                 background: transparent !important;
-                z-index: 10;
-                padding: 20px;
-                /* By default hidden on mobile unless active */
+                z-index: 5;
+                padding: 15px 15px 40px;
                 opacity: 0;
                 visibility: hidden;
                 pointer-events: none;
                 transition: opacity 0.3s ease;
+            }
+            
+            /* Fallback for really small screens to scroll */
+            @supports (-webkit-touch-callout: none) {
+                .form-cell { height: calc(100vh - 35vh); overflow-y: scroll; padding-bottom: 80px; }
             }
 
             .auth-wrapper:not(.signup-mode) .form-cell.right {
@@ -451,14 +461,16 @@
             }
 
             .auth-box {
-                background: rgba(15, 23, 42, 0.55);
-                backdrop-filter: blur(24px);
-                -webkit-backdrop-filter: blur(24px);
-                border: 1px solid rgba(255, 255, 255, 0.15);
+                background: var(--bg-surface);
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                border: 1px solid rgba(255, 255, 255, 0.05);
                 border-radius: 24px;
-                padding: 32px 24px;
-                box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-                margin: auto;
+                padding: 28px 20px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                margin: 0 auto;
+                max-width: 500px;
+                width: 100%;
             }
         }
 

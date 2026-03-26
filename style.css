@@ -1733,3 +1733,105 @@ footer {
     color: #10b981;
     font-size: 20px;
 }
+
+/* =========================================================================
+   📱 MOBILE RESPONSIVENESS
+========================================================================= */
+@media (max-width: 768px) {
+    /* Navbar Adjustment */
+    .navbar {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 100px 20px 60px;
+        min-height: auto;
+        /* Ensure background scales properly instead of zooming too tight */
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll; /* Fix for iOS jumping backgrounds */
+    }
+
+    [data-theme="light"] .hero {
+        background-attachment: scroll;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+        line-height: 1.1;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    /* Stack Grids */
+    .features-grid,
+    .roadmap-grid,
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* Section adjustments */
+    .features,
+    .how-it-works,
+    .dashboard-roadmap {
+        padding: 60px 20px;
+    }
+
+    .section-header h2,
+    .roadmap-header h3 {
+        font-size: 32px;
+    }
+
+    .split-section {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .split-content, .split-visual {
+        flex: none;
+        width: 100%;
+    }
+
+    .glass-demo-box {
+        padding: 20px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 32px;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+}
