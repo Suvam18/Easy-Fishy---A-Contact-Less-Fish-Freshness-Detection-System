@@ -108,6 +108,10 @@ Spoiled
 
 (You can update this section with your actual model detail)
 
+⚡Overview of Landing Page and Dasboard ----
+  <img width="1920" height="1080" alt="Screenshot 2026-03-26 223052" src="https://github.com/user-attachments/assets/ac33f1a9-00cd-4887-8361-2e238614f35c" />
+  <img width="1920" height="1080" alt="Screenshot 2026-03-26 223038" src="https://github.com/user-attachments/assets/57567fe4-a302-4374-8098-5ac8d6248db8" />
+
 🚀 Future Improvements
 📱 Mobile app integration
 
