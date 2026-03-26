@@ -1186,7 +1186,7 @@ body {
 footer {
     position: relative;
     margin-top: 50px;
-    padding: 60px 30px 30px;
+    padding: 25px 20px 15px; /* Reduced by ~15% */
     background: linear-gradient(180deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
     overflow: hidden;
 }
@@ -1242,9 +1242,9 @@ footer {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 60px;
+    gap: 40px;
     width: 100%;
-    padding: 60px 0;
+    padding: 25px 0; /* Reduced by ~15% */
     text-align: left;
     border-top: 1px solid rgba(0,0,0,0.05);
     border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -1338,8 +1338,8 @@ footer {
 }
 
 .footer-bottom {
-    margin-top: 80px;
-    padding-top: 30px;
+    margin-top: 34px; /* Reduced by 15% */
+    padding-top: 17px; /* Reduced by 15% */
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     text-align: center;
     position: relative;

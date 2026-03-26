@@ -1,5 +1,5 @@
 import sys
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import json
 import os
@@ -59,3 +59,11 @@ def login():
         return jsonify({'message': 'Login successful', 'user': {'firstName': user['firstName'], 'email': user['email']}}), 200
     else:
         return jsonify({'error': 'Invalid credentials'}), 401
+
+@app.route('/')
+def index():
+    return send_from_directory('..', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('..', path)
